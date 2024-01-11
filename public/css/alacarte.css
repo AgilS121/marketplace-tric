@@ -1,0 +1,9 @@
+/* FOR WRAP TEXT ON TABLE */
+table.wrap td {
+    white-space: normal;
+}
+
+/* NOWRAP TEXT ON TABLE */
+table.nowrap td {
+    white-space: nowrap;
+}
