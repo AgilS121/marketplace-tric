@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\AdminProduct;
 
@@ -30,7 +31,7 @@ Route::controller(CategoriesController::class)->group(function(){
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::get('/', function () {
+Route::get('/dashboard', function () {
     return view('dashboard.home',[
         "title" => "Home",
         "activee" => "home"
@@ -59,6 +60,9 @@ Route::controller(LoginController::class)->group(function(){
 
     Route::Post('/logout', 'logout');
 });
+
+Route::get('/register', [RegisterController::class, 'index']);
+Route::post('/register', [RegisterController::class, 'store']);
 // Route::get('/login', [LoginController::class, 'index'])
 // ->name('login')->middleware('guest');
 // Route::Post('/login', [LoginController::class, 'authenticate']);
@@ -66,7 +70,7 @@ Route::controller(LoginController::class)->group(function(){
 // Route::Post('/logout', [LoginController::class, 'logout']);
 
 // Route::resource('/dashboard/categories', AdminCategoryController::class)->except('show')
-// ->middleware('admin'); 
+// ->middleware('admin');
 
 // Route dashboard orfram
 Route::get('/orfarm', function () {
@@ -86,13 +90,13 @@ Route::get('/shopus', function () {
 
 // Route dashboard furea
 
-Route::get('/furea', function () {
+Route::get('/', function () {
     return view('dashboardFurea.layouts.app',[
         "title" => "fureaaa",
         "activee" => "furea"
     ]);
 });
-Route::get('/furea', [BarangController::class,'index']);
+Route::get('/', [BarangController::class,'index']);
 
 // Route dashboard nest
 Route::get('/nest', function () {

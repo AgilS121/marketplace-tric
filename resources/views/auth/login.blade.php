@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
-    
+
     <link rel="icon" type="image/x-icon" href="{{ asset('tema/dist/img/jenderalicon.png') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('tema/plugins/fontawesome-free/css/all.min.css') }}">
@@ -18,7 +18,8 @@
     <link rel="stylesheet" href="{{ asset('tema/dist/css/adminlte.min.css') }}">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
@@ -155,8 +156,10 @@
 
                     </div> --}}
                     <br>
-                   
+
                 </form>
+
+                <small class="text-center">Not Registered? <a href="/register"> Register</a></small>
             </div>
         </div>
     </div>

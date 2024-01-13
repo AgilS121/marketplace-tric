@@ -1,9 +1,8 @@
 @extends('dashboard.layouts.app')
 
 @section('content')
-
     {{-- Crousel Show Image Produc --}}
-    <div id="carouselExampleCaptions" class="carousel slide mb-4">
+    {{-- <div id="carouselExampleCaptions" class="carousel slide mb-4">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -40,7 +39,7 @@
             <span class="visually-hidden text-warning">Next</span>
             <span class="carousel-control-next-icon shadow-lg" aria-hidden="true"></span>
         </button>
-      </div>
+      </div> --}}
 
     <div class="container-fluid">
         <div class="row">
@@ -49,13 +48,12 @@
                 <div class="small-box bg-info">
                     <div class="inner">
                         <h3>150</h3>
-                        <p>New Orders</p>
+                        <p>Jumlah Terjual</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
 
@@ -64,13 +62,12 @@
                 <div class="small-box bg-success">
                     <div class="inner">
                         <h3>53<sup style="font-size: 20px">%</sup></h3>
-                        <p>Bounce Rate</p>
+                        <p>Stok</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
 
@@ -79,17 +76,16 @@
                 <div class="small-box bg-warning">
                     <div class="inner">
                         <h3>44</h3>
-                        <p>User Registrations</p>
+                        <p>Laba</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
 
-            <div class="col-lg-3 col-6">
+            {{-- <div class="col-lg-3 col-6">
 
                 <div class="small-box bg-danger">
                     <div class="inner">
@@ -99,10 +95,9 @@
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
-            </div>
+            </div> --}}
 
         </div>
     </div>
