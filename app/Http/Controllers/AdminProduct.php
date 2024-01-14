@@ -8,13 +8,26 @@ use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use App\Models\ProfilPenjual;
 
 class AdminProduct extends Controller
 {
     public function index(){
+        $user = Auth::user();
+
+        // // Pastikan user telah memiliki profil penjual
+        if ($user) {
+            $pp = ProfilPenjual::where('user_id', $user->id)->first();
+        } else {
+            // Jika user tidak ditemukan, atur $profilPenjual menjadi null atau sesuaikan dengan kebutuhan
+            $pp = null;
+        }
+
+
         return view('dashboard.product',[
             "title" => "product",
-            
+            "pp" => $pp
         ]);
     }
     public function ambilbarang(){
@@ -50,9 +63,9 @@ class AdminProduct extends Controller
             'body' => 'required|string',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Add validation rule for the image
         ]);
-    
+
         // Find the product by ID
-      
+
         $product = Barang::findOrFail($validatedData['id']);
 
         // Periksa apakah produk memiliki gambar yang sudah ada
@@ -67,7 +80,7 @@ class AdminProduct extends Controller
         $product->user_id = $validatedData['user_id'];
         $product->slug = $validatedData['slug'];
         $product->body = $validatedData['body'];
-    
+
         // Handle image upload
         if ($request->hasFile('image')) {
             // Process image upload here
@@ -75,14 +88,14 @@ class AdminProduct extends Controller
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->storeAs('public/images', $imageName);
-            
+
             // Update product's image field
             $product->image = $imageName;
         }
-    
+
         // Save the changes
         $product->save();
-    
+
         // Jika penyimpanan berhasil, kirim respons JSON sukses
         return response()->json(['message' => 'Product updated successfully', 'product' => $product], 200);
     }
@@ -95,11 +108,11 @@ class AdminProduct extends Controller
             'price' => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
             'user_id' => 'required|exists:users,id',
-            
+
             'slug' => 'required|unique:barangs', // asumsi bahwa slug harus unik di dalam tabel products
             'body' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi untuk file gambar
-            
+
         ]);
         // Proses file gambar yang diunggah
     if ($request->hasFile('image')) {
