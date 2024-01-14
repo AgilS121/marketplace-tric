@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('profile_penjual', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_users');
+            $table->unsignedBigInteger('user_id');
             $table->string('store_name');
             $table->text('store_description');
             $table->text('store_logo')->nullable();
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('store_phone_number', 25)->nullable();
             $table->timestamps();
 
-            $table->foreign('id_users')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
