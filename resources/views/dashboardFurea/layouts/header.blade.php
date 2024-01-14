@@ -99,14 +99,8 @@
                         <li class="header__sub--menu__items">{{ Auth::user()->name }}</li>
                         <li class="header__sub--menu__items"></li>
                         <li class="header__sub--menu__items"></li>
-                        {{-- <form method="POST" action="{{ route('logout') }}"> --}}
-                        <form method="POST" action="/logout">
 
-                            @csrf
-                            <button class="btn btn-primary btn-block mb-2" id="logout" type="submit">Daftar
-                                Penjual</button>
-
-                        </form>
+                        <a href="/regispenjual" class="btn btn-primary btn-block mb-2">Daftar Penjual</a>
 
                         <form method="POST" action="/logout">
 

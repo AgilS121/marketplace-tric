@@ -7,6 +7,7 @@ use App\Models\Barang;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminProduct extends Controller
 {
@@ -47,12 +48,18 @@ class AdminProduct extends Controller
                 Rule::unique('barangs')->ignore($request->id),
             ],
             'body' => 'required|string',
-            // Add validation rules for other fields
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Add validation rule for the image
         ]);
     
         // Find the product by ID
-        $product = Barang::find($validatedData['id']);
-    
+      
+        $product = Barang::findOrFail($validatedData['id']);
+
+        // Periksa apakah produk memiliki gambar yang sudah ada
+        if ($product->image) {
+            // Hapus gambar lama dari penyimpanan
+            Storage::delete('public/images/' . $product->image);
+        }
         // Update product details
         $product->nama_barang = $validatedData['nama_barang'];
         $product->price = $validatedData['price'];
@@ -60,7 +67,18 @@ class AdminProduct extends Controller
         $product->user_id = $validatedData['user_id'];
         $product->slug = $validatedData['slug'];
         $product->body = $validatedData['body'];
-        // Update other fields as needed
+    
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            // Process image upload here
+            // Similar to what you did in the store method
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/images', $imageName);
+            
+            // Update product's image field
+            $product->image = $imageName;
+        }
     
         // Save the changes
         $product->save();
@@ -80,8 +98,19 @@ class AdminProduct extends Controller
             
             'slug' => 'required|unique:barangs', // asumsi bahwa slug harus unik di dalam tabel products
             'body' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi untuk file gambar
             
         ]);
+        // Proses file gambar yang diunggah
+    if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+        $image->storeAs('public/images', $imageName); // Simpan gambar ke dalam penyimpanan
+
+        // Simpan nama file gambar ke dalam database
+        $validatedData['image'] = $imageName;
+    }
+
 
         // Simpan data produk baru ke dalam database
         $product = Barang::create($validatedData);

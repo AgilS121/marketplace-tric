@@ -8,6 +8,8 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\RegisterPenjualController;
+use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\AdminProduct;
 
@@ -52,6 +54,12 @@ Route::get('posts/{post:slug}', [PostController::class, 'show']);
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('/getcategory', [AdminCategoryController::class, 'getcategories']);
+
+
+Route::get('/regispenjual', [RegisterPenjualController::class, 'index']);
+Route::post('/regispenjual', [RegisterPenjualController::class, 'store']);
 
 //Login Controller
 Route::controller(LoginController::class)->group(function(){

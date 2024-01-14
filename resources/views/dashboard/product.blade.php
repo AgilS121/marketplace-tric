@@ -13,7 +13,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <button type="button" class="btn btn-success my-2" data-toggle="modal"
+                                <button type="button" class="btn btn-success my-2 addpr" data-toggle="modal"
                                     data-target="#addProductModal"><i class="fas fa-plus"></i> Add Product</button>
 
 
@@ -26,6 +26,7 @@
                                             <th>Product Name</th>
                                             <th>Price</th>
                                             <th>Category</th>
+                                            <th>Image</th>
                                             <th>Action</th>
 
                                         </tr>
@@ -38,6 +39,7 @@
                                         <th>Product Name</th>
                                         <th>Price</th>
                                         <th>Category</th>
+                                        <th>Image</th>
                                         <th>Action</th>
 
                                     </tfoot>
@@ -72,7 +74,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Form untuk menambahkan produk -->
-                    <form id="createProductForm">
+                    <form id="createProductForm" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="productName">Product Name</label>
                             <input type="text" class="form-control" id="nama_barang" name="nama_barang">
@@ -81,18 +83,29 @@
                             <label for="productPrice">Price</label>
                             <input type="text" class="form-control" id="price" name="price">
                         </div>
+                        <!-- Input untuk upload gambar -->
                         <div class="form-group">
-                            <label for="categoryID">Category ID</label>
-                            <input type="text" class="form-control" id="categoryID" name="category_id">
+                            <label for="productImage">Image</label>
+                            <input type="file" class="form-control-file" id="productImage" name="image">
+                        </div>
+                        <div class="form-group">
+                            <label for="categoryID">Category</label>
+                            <select class="form-control" id="categoryID" name="category_id">
+                                <!-- Add options dynamically based on your categories -->
+                                <option value="1">Choose Category</option>
+                                <option value="2">Category 2</option>
+                                <option value="3">Category 3</option>
+                                <!-- Add more options as needed -->
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="userID">User ID</label>
                             <input type="text" class="form-control" id="userID" name="user_id">
                         </div>
                         <!-- <div class="form-group">
-            <label for="productImage">Image</label>
-            <input type="text" class="form-control" id="productImage" name="productImage">
-        </div> -->
+                    <label for="productImage">Image</label>
+                    <input type="text" class="form-control" id="productImage" name="productImage">
+                </div> -->
                         <div class="form-group">
                             <label for="productSlug">Slug</label>
                             <input type="text" class="form-control" id="productSlug" name="slug">
@@ -102,9 +115,9 @@
                             <textarea class="form-control" id="productBody" name="body"></textarea>
                         </div>
                         <!-- <div class="form-group">
-            <label for="productPublishedAt">Published At</label>
-            <input type="text" class="form-control" id="productPublishedAt" name="productPublishedAt">
-        </div> -->
+                    <label for="productPublishedAt">Published At</label>
+                    <input type="text" class="form-control" id="productPublishedAt" name="productPublishedAt">
+                </div> -->
                         <!-- More input fields for created_at and updated_at if needed -->
 
                         <button type="submit" class="btn btn-primary">Save</button>
@@ -140,17 +153,26 @@
                             <input type="text" class="form-control" id="editProductPrice" name="price">
                         </div>
                         <div class="form-group">
-                            <label for="categoryID">Category ID</label>
-                            <input type="text" class="form-control" id="editProductCategory" name="category_id">
+                            <label for="image">Image</label>
+                            <input type="file" class="form-control-file" id="image" name="image">
+                        </div>
+                        <div class="form-group">
+                            <label for="categoryUbahID">Category</label>
+                            <select class="form-control" id="categoryUbahID" name="category_id">
+                                <!-- Add options dynamically based on your categories -->
+                                <option value="1">Choose Category</option>
+
+                                <!-- Add more options as needed -->
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="userID">User ID</label>
                             <input type="text" class="form-control" id="editProductUserId" name="user_id">
                         </div>
                         <!-- <div class="form-group">
-            <label for="productImage">Image</label>
-            <input type="text" class="form-control" id="productImage" name="productImage">
-        </div> -->
+                    <label for="productImage">Image</label>
+                    <input type="text" class="form-control" id="productImage" name="productImage">
+                </div> -->
                         <div class="form-group">
                             <label for="productSlug">Slug</label>
                             <input type="text" class="form-control" id="editProductSlug" name="slug">
@@ -220,6 +242,7 @@
                             product.nama_barang,
                             product.price,
                             product.category_name,
+                            product.image,
                             '<button class="btn btn-warning btn-edit mx-1" data-toggle="modal" data-target="#editProductModal" data-product-id="' +
                             product.id +
                             '"> <i class="fas fa-edit"></i> Edit</button>' +
@@ -228,6 +251,27 @@
                             '"> <i class="fas fa-trash"></i> Delete</button>'
                         ]);
                     });
+
+                    //ambilkategori
+
+
+                    // Add new rows from the AJAX response
+                    $.each(response, function(index, product) {
+                        dataTable.row.add([
+                            index + 1,
+                            product.nama_barang,
+                            product.price,
+                            product.category_name,
+                            product.image,
+                            '<button class="btn btn-warning btn-edit mx-1" data-toggle="modal" data-target="#editProductModal" data-product-id="' +
+                            product.id +
+                            '"> <i class="fas fa-edit"></i> Edit</button>' +
+                            '<button class="btn btn-danger mx-1" data-toggle="modal" data-target="#deleteModal" data-product-id="' +
+                            product.id +
+                            '"> <i class="fas fa-trash"></i> Delete</button>'
+                        ]);
+                    });
+
 
                     // Draw the DataTable to reflect changes
                     dataTable.draw();
@@ -238,87 +282,128 @@
                     console.error('Error:', error);
                 }
             });
+        });
 
-            //ambildataketika edit
-            // Event handler for Edit button
-            $('#tableBody').on('click', '.btn-edit', function() {
-                console.log("oke");
-                var productId = $(this).data('product-id');
-                console.log('Edit product with ID:', productId);
+        //ambildataketika edit
+        // Event handler for Edit button
+        $('#tableBody').on('click', '.btn-edit', function() {
+            console.log("oke");
+            var productId = $(this).data('product-id');
+            console.log('Edit product with ID:', productId);
 
-                // Assuming you have an API endpoint to get product details by ID
-                $.ajax({
-                    url: 'adminproduct/getProductById/' + productId,
-                    method: 'GET',
-                    dataType: 'json',
-                    success: function(product) {
-                        console.log(product);
-                        // Populate the edit modal with product details
-                        $('#editProductId').val(product.id);
-                        $('#editProductName').val(product.nama_barang);
-                        $('#editProductCategory').val(product.category_id);
-                        $('#editProductPrice').val(product.price);
-                        $('#editProductUserId').val(product.user_id);
-                        $('#editProductSlug').val(product.slug);
-                        $('#editProductBody').val(product.body);
 
-                        // Populate other input fields with product details
 
-                        // Show the edit modal
-                        // $('#editProductModal').modal('show');
-                    },
-                    error: function(error) {
-                        console.error('Error:', error);
-                    }
-                });
-            });
+            // Assuming you have an API endpoint to get product details by ID
+            $.ajax({
+                url: 'adminproduct/getProductById/' + productId,
+                method: 'GET',
+                dataType: 'json',
+                success: function(product) {
+                    console.log(product);
+                    // Populate the edit modal with product details
 
-            //simpan data
-            $('#createProductForm').submit(function(e) {
-                e.preventDefault(); // Hindari pengiriman form default
+                    $('#editProductId').val(product.id);
+                    $('#editProductName').val(product.nama_barang);
+                    // $('#editProductCategory').val(product.category_id);
+                    var productId = product.category_id;
+                    $.ajax({
+                        url: "{{ url('/getcategory') }}",
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function(response) {
+                            console.log(response);
+                            var categorySelect = $('#categoryUbahID');
+                            console.log(categorySelect);
 
-                // Ambil data dari form
-                var formData = $(this).serialize();
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
+                            // Bersihkan opsi yang sudah ada (jika ada)
+                            categorySelect.empty();
+                            categorySelect.append(`<option> Choose Category </option>`);
 
-                // Kirim permintaan AJAX
-                $.ajax({
-                    url: 'adminproduct/store', // Sesuaikan dengan endpoint Anda
-                    type: 'POST',
-                    data: formData,
-                    dataType: 'json',
-                    success: function(response) {
-                        // Tanggapan dari server ketika berhasil
-                        console.log(response);
-                        if (response.message === 'Product created successfully') {
-                            Swal.fire({
-                                title: 'Success!',
-                                text: response.message,
-                                icon: 'success',
-                                confirmButtonText: 'OK'
-                            }).then((result) => {
-                                setTimeout(function() {
-                                    location.reload();
-                                }, 1000);
+                            // Tambahkan opsi dari respons
+                            $.each(response, function(index, category) {
+                                var option = '<option value="' + category.id + '"';
 
+                                // Tentukan kategori yang dipilih (selected) berdasarkan ID produk
+                                if (productId === category.id) {
+                                    option += ' selected';
+                                }
+
+                                option += '>' + category.name + '</option>';
+                                categorySelect.append(option);
                             });
-                        } else {
-                            // Tambahkan logika jika respons tidak sesuai dengan yang diharapkan
+                        },
+                        error: function(error) {
+                            console.error('Error:', error);
                         }
-                        // Lakukan tindakan sesuai keberhasilan, seperti menampilkan pesan atau memperbarui tampilan
-                    },
-                    error: function(error) {
-                        // Tanggapan dari server jika terjadi kesalahan
-                        console.log(error.responseJSON);
-                        // Lakukan tindakan sesuai kegagalan, seperti menampilkan pesan error
-                    }
-                });
+                    });
+                    $('#editProductPrice').val(product.price);
+                    $('#editProductUserId').val(product.user_id);
+                    $('#editProductSlug').val(product.slug);
+                    $('#editProductBody').val(product.body);
+
+                    // Populate other input fields with product details
+
+                    // Show the edit modal
+                    // $('#editProductModal').modal('show');
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
             });
         });
+
+
+
+        //simpan data
+        $('#createProductForm').submit(function(e) {
+            e.preventDefault(); // Hindari pengiriman form default
+
+            // Ambil data dari form
+            var formData = new FormData(this);
+
+            // Tambahkan CSRF token ke FormData
+            formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
+
+            // Kirim permintaan AJAX
+            $.ajax({
+                url: 'adminproduct/store', // Sesuaikan dengan endpoint Anda
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function(response) {
+                    // Tanggapan dari server ketika berhasil
+                    console.log(response);
+                    if (response.message === 'Product created successfully') {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1000);
+
+                        });
+                    } else {
+                        // Tambahkan logika jika respons tidak sesuai dengan yang diharapkan
+                    }
+                    // Lakukan tindakan sesuai keberhasilan, seperti menampilkan pesan atau memperbarui tampilan
+                },
+                error: function(error) {
+                    // Tanggapan dari server jika terjadi kesalahan
+                    console.log(error.responseJSON);
+                    // Lakukan tindakan sesuai kegagalan, seperti menampilkan pesan error
+                }
+
+            });
+
+        });
+
+
         //hapus produk
         $('#tableBody').on('click', '.btn-danger', function() {
             console.log("oke");
@@ -373,12 +458,13 @@
             e.preventDefault();
 
             // Get the edited product details from the form
-            var editedProductData = $(this).serialize();
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+
+            var editedProductData = new FormData(this);
+
+            // Tambahkan CSRF token ke FormData
+            editedProductData.append('_token', $('meta[name="csrf-token"]').attr('content'));
+
+
 
             // Assuming you have an API endpoint to update the product
             $.ajax({
@@ -386,6 +472,9 @@
                 method: 'POST',
                 data: editedProductData,
                 dataType: 'json',
+                contentType: false,
+                processData: false,
+                cache: false,
                 success: function(response) {
                     // Tanggapan dari server ketika berhasil
                     console.log(response);
@@ -412,6 +501,43 @@
 
 
 
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+
+            // Event handler untuk tombol "Add Product"
+            $('.addpr').click(function() {
+                // Panggil /getcategory
+                $.ajax({
+                    url: "{{ url('/getcategory') }}",
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        // Logika penanganan respons di sini (mungkin memperbarui elemen di modal)
+                        console.log(response);
+                        var categorySelect = $('#categoryID');
+
+                        // Bersihkan opsi yang sudah ada (jika ada)
+                        categorySelect.empty();
+                        categorySelect.append(`<option value=""> - Choose Category - </option>`)
+
+                        // Tambahkan opsi dari respons
+                        $.each(response, function(index, category) {
+                            categorySelect.append('<option value="' + category.id +
+                                '">' + category.name + '</option>');
+                        });
+                    },
+                    error: function(error) {
+                        console.error('Error:', error);
+                    }
+                });
+
+                // Buka modal "Add Product"
+                // $('#addProductModal').modal('show');
+            });
+
+            // ... (kode lainnya)
         });
     </script>
 @endsection

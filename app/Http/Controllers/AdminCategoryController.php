@@ -31,7 +31,14 @@ class AdminCategoryController extends Controller
             'categories' => Category::all()
         ]);
     }
+    public function getcategories()
+    {
+        // Ambil data kategori dari tabel categories
+        $categories = Category::all();
 
+        // Kembalikan data dalam format JSON
+        return response()->json($categories);
+    }
     /**
      * Show the form for creating a new resource.
      */
