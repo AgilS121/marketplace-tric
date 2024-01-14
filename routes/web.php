@@ -49,6 +49,7 @@ Route::get('/adminproduct/getProductById/{id}', [AdminProduct::class,'getProduct
 Route::post('/adminproduct/updateProduct', [AdminProduct::class,'updateProduct']);
 Route::post('/adminproduct/store', [AdminProduct::class,'store']);
 Route::delete('adminproduct/delete/{id}', [AdminProduct::class, 'deleteProduct']);
+
 Route::get('/', [PostController::class,'index']);
 Route::get('/home', [PostController::class,'index']);
 // halaman single post
@@ -63,6 +64,9 @@ Route::get('/getcategory', [AdminCategoryController::class, 'getcategories']);
 Route::get('/konfigurasiumum', [KonfigurasiController::class, 'index']);
 Route::get('/konfigurasiicon', [KonfigurasiController::class, 'indexicon']);
 Route::get('/konfigurasilogo', [KonfigurasiController::class, 'indexlogo']);
+Route::get('/ambildata', [KonfigurasiController::class,'ambildata']);
+Route::post('/updatePenjual', [KonfigurasiController::class,'updatePenjual']);
+
 
 Route::get('/carousel', [CarouselController::class, 'index']);
 
