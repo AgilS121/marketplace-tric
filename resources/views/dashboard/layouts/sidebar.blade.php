@@ -5,6 +5,12 @@
         <img src="tema/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
             style="opacity: .8">
         <span class="brand-text font-weight-light">AdminLTE 3</span>
+        {{-- @if ($profilPenjual)
+            <span class="brand-text font-weight-light">{{ $profilPenjual->store_name }}</span>
+        @else
+            <span class="brand-text font-weight-light">MyStyle</span>
+        @endif --}}
+        {{-- <a href="{{ url('/test') }}">test</a> --}}
     </a>
 
     <!-- Sidebar -->
@@ -15,7 +21,7 @@
                 <img src="tema/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">MyStyle</a>
+                <a href="#" class="d-block">{{ Auth::user()->name }}</a>
             </div>
         </div>
 
@@ -29,6 +35,16 @@
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
+                        </p>
+                    </a>
+                </li>
+
+
+                <li class="nav-item {{ Request::is('carousel') ? 'menu-open' : '' }}">
+                    <a href="{{ url('/carousel') }}" class="nav-link {{ Request::is('carousel') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-columns"></i>
+                        <p>
+                            Carousel
                         </p>
                     </a>
                 </li>
@@ -53,19 +69,19 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/forms/general.html" class="nav-link">
+                            <a href="{{ url('/konfigurasiumum') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Konfigurasi Umum</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/forms/general.html" class="nav-link">
+                            <a href="{{ url('/konfigurasilogo') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Konfigurasi Logo</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/forms/general.html" class="nav-link">
+                            <a href="{{ url('/konfigurasiicon') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Konfigurasi Icon</p>
                             </a>

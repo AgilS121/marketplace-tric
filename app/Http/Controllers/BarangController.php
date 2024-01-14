@@ -13,7 +13,7 @@ class BarangController extends Controller
      */
     public function index()
     {
-        // 
+        //
         $barang = Barang::all();
         // dd($barang);
         return view('dashboardFurea/layouts/app', [

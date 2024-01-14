@@ -10,8 +10,11 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\RegisterPenjualController;
 use App\Http\Controllers\AdminCategoryController;
+use App\Http\Controllers\KonfigurasiController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\AdminProduct;
+use App\Http\Controllers\ProfilPenjualController;
+use App\Http\Controllers\CarouselController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +60,13 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/getcategory', [AdminCategoryController::class, 'getcategories']);
 
+Route::get('/konfigurasiumum', [KonfigurasiController::class, 'index']);
+Route::get('/konfigurasiicon', [KonfigurasiController::class, 'indexicon']);
+Route::get('/konfigurasilogo', [KonfigurasiController::class, 'indexlogo']);
+
+Route::get('/carousel', [CarouselController::class, 'index']);
+
+Route::get('/test', [ProfilPenjualController::class, 'index']);
 
 Route::get('/regispenjual', [RegisterPenjualController::class, 'index']);
 Route::post('/regispenjual', [RegisterPenjualController::class, 'store']);
