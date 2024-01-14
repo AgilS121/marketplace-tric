@@ -76,10 +76,11 @@ class KonfigurasiController extends Controller
     return response()->json($data);
     }
 
-    public function getPenjualById($id)
+    public function getPenjualById()
     {
+        $user = Auth::user();
         // Assuming you have a 'Barang' model
-        $data = ProfilPenjual::find($id);
+        $data = ProfilPenjual::find($user->id);
 
         // Return product details as JSON response
         return response()->json($data);

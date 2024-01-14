@@ -65,6 +65,7 @@ Route::get('/konfigurasiumum', [KonfigurasiController::class, 'index']);
 Route::get('/konfigurasiicon', [KonfigurasiController::class, 'indexicon']);
 Route::get('/konfigurasilogo', [KonfigurasiController::class, 'indexlogo']);
 Route::get('/ambildata', [KonfigurasiController::class,'ambildata']);
+Route::get('/ambildatabyid', [KonfigurasiController::class,'getPenjualById']);
 Route::post('/updatePenjual', [KonfigurasiController::class,'updatePenjual']);
 
 
