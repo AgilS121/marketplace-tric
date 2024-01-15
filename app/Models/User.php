@@ -22,7 +22,8 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
-        'role'
+        'role',
+        'image'
     ];
 
     protected $guarded = ['id'];
@@ -50,5 +51,10 @@ class User extends Authenticatable
     public function profilPenjual()
     {
         return $this->hasOne(ProfilPenjual::class);
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
     }
 }

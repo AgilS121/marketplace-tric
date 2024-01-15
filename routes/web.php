@@ -16,6 +16,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\AdminProduct;
 use App\Http\Controllers\ProfilPenjualController;
 use App\Http\Controllers\CarouselController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +76,11 @@ Route::post('/updatePenjual', [KonfigurasiController::class,'updatePenjual']);
 Route::post('/updateIconPenjual', [KonfigurasiController::class,'updateIconPenjual']);
 Route::post('/updateLogoPenjual', [KonfigurasiController::class,'updateLogoPenjual']);
 
+Route::get('/ambilprofilewhereid', [ProfileController::class,'ambilprofilewhereid']);
+Route::get('/getProfileById/{id}', [ProfileController::class,'getProfileById']);
+Route::post('/updateProfile', [ProfileController::class,'updateProfile']);
+Route::post('/addprofil', [ProfileController::class,'store']);
+Route::delete('/deleteProfile/{id}', [ProfileController::class,'deleteProfile']);
 
 Route::get('/carousel', [CarouselController::class, 'index']);
 
@@ -93,6 +99,7 @@ Route::controller(LoginController::class)->group(function(){
 
 Route::get('/register', [RegisterController::class, 'index']);
 Route::post('/register', [RegisterController::class, 'store']);
+Route::post('/updateProfile', [RegisterController::class, 'updateProfile']);
 // Route::get('/login', [LoginController::class, 'index'])
 // ->name('login')->middleware('guest');
 // Route::Post('/login', [LoginController::class, 'authenticate']);
@@ -166,6 +173,7 @@ Route::get('/loginb', function () {
 //     return view('dashboardFurea.posts.account',[]);
 // });
 Route::get('/myaccount', [HomeFureaController::class,'account']);
+Route::get('/myprofile', [HomeFureaController::class,'myprofile']);
 
 // Route::get('/wishlist', function () {
 //     return view('dashboardFurea.posts.wishlist',[]);

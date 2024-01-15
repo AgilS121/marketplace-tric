@@ -103,9 +103,9 @@
                             <input type="text" class="form-control" id="userID" name="user_id">
                         </div>
                         <!-- <div class="form-group">
-                                                <label for="productImage">Image</label>
-                                                <input type="text" class="form-control" id="productImage" name="productImage">
-                                            </div> -->
+                                                    <label for="productImage">Image</label>
+                                                    <input type="text" class="form-control" id="productImage" name="productImage">
+                                                </div> -->
                         <div class="form-group">
                             <label for="productSlug">Slug</label>
                             <input type="text" class="form-control" id="productSlug" name="slug">
@@ -115,9 +115,9 @@
                             <textarea class="form-control" id="productBody" name="body"></textarea>
                         </div>
                         <!-- <div class="form-group">
-                                                <label for="productPublishedAt">Published At</label>
-                                                <input type="text" class="form-control" id="productPublishedAt" name="productPublishedAt">
-                                            </div> -->
+                                                    <label for="productPublishedAt">Published At</label>
+                                                    <input type="text" class="form-control" id="productPublishedAt" name="productPublishedAt">
+                                                </div> -->
                         <!-- More input fields for created_at and updated_at if needed -->
 
                         <button type="submit" class="btn btn-primary">Save</button>
@@ -170,9 +170,9 @@
                             <input type="text" class="form-control" id="editProductUserId" name="user_id">
                         </div>
                         <!-- <div class="form-group">
-                                                <label for="productImage">Image</label>
-                                                <input type="text" class="form-control" id="productImage" name="productImage">
-                                            </div> -->
+                                                    <label for="productImage">Image</label>
+                                                    <input type="text" class="form-control" id="productImage" name="productImage">
+                                                </div> -->
                         <div class="form-group">
                             <label for="productSlug">Slug</label>
                             <input type="text" class="form-control" id="editProductSlug" name="slug">

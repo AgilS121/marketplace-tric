@@ -39,22 +39,9 @@
             <div class="container">
                 <p class="account__welcome--text">Hello, {{ Auth::User()->name }} welcome to your dashboard!</p>
                 <div class="my__account--section__inner border-radius-10 d-flex">
-                    <div class="account__left--sidebar">
-                        <h3 class="account__content--title mb-20">My Profile</h3>
-                        <ul class="account__menu">
-                            <li class="account__menu--list active"><a href="/myaccount">Dashboard</a></li>
-                            <li class="account__menu--list"><a href="/address">Addresses</a></li>
-                            <li class="account__menu--list"><a href="/wishlist">Wishlist</a></li>
-                            <form method="POST" action="/logout">
 
-                                @csrf
+                    @include('dashboardFurea.posts.sidebaraccount')
 
-
-                                <button class="btn btn-danger btn-block mb-2"" id="logout"
-                                    type="submit">Logout</button>
-                            </form>
-                        </ul>
-                    </div>
                     <div class="account__wrapper">
                         <div class="account__content">
                             <h3 class="account__content--title mb-20">Orders History</h3>
