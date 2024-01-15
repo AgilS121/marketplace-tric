@@ -13,8 +13,23 @@
                 </a>
             </div>
             <div class="main__logo">
-                <h1 class="main__logo--title"><a class="main__logo--link" href="/"><img class="main__logo--img"
-                            width="150px" src="img/LogoTRIC.png" alt="logo-img"></a></h1>
+                <h1 class="main__logo--title"><a class="main__logo--link" href="/">
+                        @if (Auth::check())
+                            @if ($pp->store_logo)
+                                <img class="main__logo--img" width="150px"
+                                    src="{{ asset('storage/public/images/' . $pp->store_logo) }}" alt="logo-img"
+                                    style="height: 100px">
+                            @else
+                                <img class="main__logo--img" width="150px" src="{{ asset('img/LogoTRIC.png') }}"
+                                    alt="default-logo-img">
+                            @endif
+                        @else
+                            <img class="main__logo--img" width="150px" src="{{ asset('img/LogoTRIC.png') }}"
+                                alt="default-logo-img">
+                        @endif
+
+
+                    </a></h1>
             </div>
             <div class="header__menu d-none d-lg-block">
                 <nav class="header__menu--navigation style3">
@@ -100,8 +115,24 @@
                         <li class="header__sub--menu__items"></li>
                         <li class="header__sub--menu__items"></li>
 
-                        <a href="/regispenjual" class="btn btn-primary btn-block mb-2">Daftar Penjual</a>
+                        {{-- <a href="/regispenjual" class="btn btn-primary btn-block mb-2">Daftar Penjual</a> --}}
+                        <br>
+                        @if (Auth::check())
+                            @if (isset($pp))
+                                {{-- Jika ada user_id di tabel profile_penjual, tampilkan halaman penjual --}}
+                                <a href="/dashboard" class="btn btn-primary btn-block mb-2">Go To Dashboard Seller</a>
+                                <br>
+                                <a href="/myaccount" class="btn btn-success btn-block mb-2">My Account</a>
+                            @else
+                                {{-- Jika tidak ada user_id di tabel profile_penjual, tampilkan tautan untuk mendaftar sebagai penjual --}}
+                                <a href="/regispenjual" class="btn btn-primary btn-block mb-2">Daftar Penjual</a>
+                            @endif
+                        @else
+                            <img class="main__logo--img" width="150px" src="{{ asset('img/LogoTRIC.png') }}"
+                                alt="default-logo-img">
+                        @endif
 
+                        <br>
                         <form method="POST" action="/logout">
 
                             @csrf

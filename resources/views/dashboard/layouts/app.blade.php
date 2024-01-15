@@ -108,6 +108,11 @@
         }
     </style>
 </head>
+@if (!Auth::check())
+    <script>
+        window.location.href = '/';
+    </script>
+@endif
 
 <body class="hold-transition sidebar-mini layout-fixed">
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ProfilPenjual;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Barang;
 
 class HomeController extends Controller
 {
@@ -34,9 +35,11 @@ class HomeController extends Controller
         // Jika user tidak ditemukan, atur $profilPenjual menjadi null atau sesuaikan dengan kebutuhan
         $pp = null;
     }
+    $barang = Barang::where('user_id', $user->id)->get();
 
         return view('dashboard.home', [
-            'pp' => $pp
+            'pp' => $pp,
+            'barang' => $barang
         ]);
     }
 }
