@@ -36,13 +36,16 @@ Route::controller(CategoriesController::class)->group(function(){
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard.home',[
-        "title" => "Home",
-        "activee" => "home"
-    ]);
-});
+// Route::get('/dashboard', function () {
+//     return view('dashboard.home',[
+//         "title" => "Home",
+//         "activee" => "home"
+//     ]);
+// });
+Route::get('/dashboard', [HomeController::class,'index']);
 
+
+Route::get('/adminproduct', [AdminProduct::class,'index']);
 Route::get('/adminproduct', [AdminProduct::class,'index']);
 Route::get('/adminproduct/ambilbarang', [AdminProduct::class,'ambilbarang']);
 Route::get('/adminproduct/getProductById/{id}', [AdminProduct::class,'getProductById']);
@@ -67,6 +70,8 @@ Route::get('/konfigurasilogo', [KonfigurasiController::class, 'indexlogo']);
 Route::get('/ambildata', [KonfigurasiController::class,'ambildata']);
 Route::get('/ambildatabyid', [KonfigurasiController::class,'getPenjualById']);
 Route::post('/updatePenjual', [KonfigurasiController::class,'updatePenjual']);
+Route::post('/updateIconPenjual', [KonfigurasiController::class,'updateIconPenjual']);
+Route::post('/updateLogoPenjual', [KonfigurasiController::class,'updateLogoPenjual']);
 
 
 Route::get('/carousel', [CarouselController::class, 'index']);

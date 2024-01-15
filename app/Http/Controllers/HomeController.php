@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ProfilPenjual;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard.home');
+        $user = Auth::user();
+
+    // // Pastikan user telah memiliki profil penjual
+    if ($user) {
+        $pp = ProfilPenjual::where('user_id', $user->id)->first();
+    } else {
+        // Jika user tidak ditemukan, atur $profilPenjual menjadi null atau sesuaikan dengan kebutuhan
+        $pp = null;
+    }
+
+        return view('dashboard.home', [
+            'pp' => $pp
+        ]);
     }
 }

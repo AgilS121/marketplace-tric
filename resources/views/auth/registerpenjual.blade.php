@@ -93,40 +93,6 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="store_logo"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Store Logo') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="store_logo" type="text"
-                                        class="form-control @error('store_logo') is-invalid @enderror" name="store_logo"
-                                        value="{{ old('store_logo') }}" required autocomplete="store_logo">
-
-                                    @error('store_logo')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="store_icon"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Store Icon') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="store_icon" type="text"
-                                        class="form-control @error('store_icon') is-invalid @enderror" name="store_icon"
-                                        required>
-
-                                    @error('store_icon')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
                                 <label for="store_address"
                                     class="col-md-4 col-form-label text-md-right">{{ __('Store Address') }}</label>
 
