@@ -51,4 +51,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(ProfilPenjual::class);
     }
+    // Di dalam model User
+public function wishlists()
+{
+    return $this->hasMany(Wishlist::class);
+}
+
 }

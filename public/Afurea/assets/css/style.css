@@ -3767,11 +3767,12 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .hero__slider--bg {
-    background: url(https://source.unsplash.com/1170x474?Design);
+   
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: center center;
     background-size: cover;
+    overflow: hidden;
 }
 
 @media only screen and (max-width: 767px) {
@@ -3781,7 +3782,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .hero__slider--bg.slider2 {
-    background: url(https://source.unsplash.com/1170x474?Design);
+   
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: center center;
@@ -3795,7 +3796,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .hero__slider--bg.slider3 {
-    background: url(https://source.unsplash.com/1170x474?Design);
+  
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: center center;
@@ -4060,7 +4061,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .hero__slider--bg2 {
-    background: url(../img/slider/home2-slider1.webp);
+   
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: center center;
@@ -4102,7 +4103,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .hero__slider--bg2.slider2 {
-    background: url(../img/slider/home2-slider2.webp);
+ 
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: center center;
@@ -4168,12 +4169,12 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .hero__slider--bg3 {
-    background: url(https://source.unsplash.com/1170x474?modern&sofa);
+   
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: center center;
     background-size: cover;
-    height: 32rem;
+    height: 28rem;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -4213,7 +4214,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .hero__slider--bg3.slider2 {
-    background: url(https://source.unsplash.com/1170x474?home&sofa);
+   
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: center center;
@@ -4249,6 +4250,32 @@ input[type="number"]::-webkit-outer-spin-button {
 
 @media only screen and (max-width: 480px) {
     .slider__content3.padding-left {
+        padding: 0 1.5rem;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .slider__content3.padding-right {
+        padding-right: 5rem;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .slider__content3.padding-right {
+        padding-right: 7rem;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .slider__content3.padding-right {
+        text-align: center;
+        width: 100%;
+        padding: 0 3rem;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .slider__content3.padding-right {
         padding: 0 1.5rem;
     }
 }

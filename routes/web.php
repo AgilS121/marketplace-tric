@@ -4,6 +4,7 @@ use App\Models\categories;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HomeFureaController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\Auth\LoginController;
@@ -15,6 +16,8 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\AdminProduct;
 use App\Http\Controllers\ProfilPenjualController;
 use App\Http\Controllers\CarouselController;
+use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -118,13 +121,14 @@ Route::get('/shopus', function () {
 
 // Route dashboard furea
 
-Route::get('/', function () {
-    return view('dashboardFurea.layouts.app',[
-        "title" => "fureaaa",
-        "activee" => "furea"
-    ]);
-});
+// Route::get('/', function () {
+//     return view('dashboardFurea.layouts.app',[
+//         "title" => "fureaaa",
+//         "activee" => "furea"
+//     ]);
+// });
 Route::get('/', [BarangController::class,'index']);
+Route::get('/', [HomeFureaController::class,'index']);
 
 // Route dashboard nest
 Route::get('/nest', function () {
@@ -136,30 +140,41 @@ Route::get('/nest', function () {
 
 // Route Furea
 // Route dashboard nest
-Route::get('/shopfurea', function () {
-    return view('dashboardFurea.posts.index',[]);
-});
+// Route::get('/shopfurea', function () {
+//     return view('dashboardFurea.posts.index',[]);
+// });
+Route::get('/shopfurea', [HomeFureaController::class,'shopfurea']);
+
 Route::get('/product', function () {
     return view('dashboardFurea.posts.show',[]);
 });
 Route::get('/blog', function () {
     return view('dashboardFurea.posts.blog',[]);
 });
-Route::get('/about', function () {
-    return view('dashboardFurea.posts.about',[]);
-});
-Route::get('/contact', function () {
-    return view('dashboardFurea.posts.contact',[]);
-});
+// Route::get('/about', function () {
+//     return view('dashboardFurea.posts.about',[]);
+// });
+// Route::get('/contact', function () {
+//     return view('dashboardFurea.posts.contact',[]);
+// });
+Route::get('/about', [HomeFureaController::class,'about']);
+Route::get('/contact', [HomeFureaController::class,'contact']);
+
 Route::get('/loginb', function () {
     return view('dashboardFurea.auth.login',[]);
 });
 Route::get('/myaccount', function () {
     return view('dashboardFurea.posts.account',[]);
 });
-Route::get('/wishlist', function () {
-    return view('dashboardFurea.posts.wishlist',[]);
-});
-Route::get('/address', function () {
-    return view('dashboardFurea.posts.address',[]);
-});
+// Route::get('/wishlist', function () {
+//     return view('dashboardFurea.posts.wishlist',[]);
+// });
+Route::get('/wishlist', [WishlistController::class,'index']);
+Route::get('/ambilwishlist', [WishlistController::class,'ambilWishlist']);
+Route::post('/tambahwishlist', [WishlistController::class,'tambahWishlist']);
+Route::delete('/hapuswishlist/{barang_id}', [WishlistController::class, 'hapusWishlist']);
+Route::post('/addcart', [CartController::class, 'addToCart'])->name('addcart');
+Route::get('/ambilcart', [CartController::class,'ambilCart']);
+Route::get('/getcartcount', [CartController::class, 'getCartCount']);
+Route::get('/getCartData', [CartController::class, 'getCartData']);
+Route::post('/updatecart', [CartController::class, 'update'])->name('cart.update');

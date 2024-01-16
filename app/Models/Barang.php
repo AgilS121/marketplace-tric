@@ -69,4 +69,10 @@ class Barang extends Model
     //         ]
     //     ];
     // }
+    // Di dalam model Barang
+public function wishlists()
+{
+    return $this->hasMany(Wishlist::class, 'barang_id');
+}
+
 }

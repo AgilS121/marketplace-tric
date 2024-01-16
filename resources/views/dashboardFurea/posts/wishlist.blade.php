@@ -6,6 +6,7 @@
   <title>Furea - Wishlist</title>
   <meta name="description" content="Morden Bootstrap HTML5 Template">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="shortcut icon" type="image/x-icon" href="{{ asset('Afurea') }}/assets/img/favicon.ico">
     
    <!-- ======= All CSS Plugins here ======== -->
@@ -74,31 +75,33 @@
                                     </tr>
                                 </thead>
                                 <tbody class="cart__table--body">
+                                    @foreach($wishlist as $ws)
                                     <tr class="cart__table--body__items">
                                         <td class="cart__table--body__list">
                                             <div class="cart__product d-flex align-items-center">
-                                                <button class="cart__remove--btn" aria-label="search button" type="button"><svg fill="currentColor" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="16px" height="16px"><path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z"/></svg></button>
+                                                <button class="cart__remove--btn hapuswish" data-barang-id="{{ $ws->barang_id }} aria-label="search button" type="button"><svg fill="currentColor" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="16px" height="16px"><path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z"/></svg></button>
                                                 <div class="cart__thumbnail">
-                                                    <a href="product-details.html"><img class="border-radius-5" src="{{ asset('Afurea') }}/assets/img/product/product1.webp" alt="cart-product"></a>
+                                                    <a href="product-details.html"><img class="border-radius-5" src="{{ asset('storage/public/images/' . $ws->barang->image) }}" alt="cart-product"></a>
                                                 </div>
                                                 <div class="cart__content">
-                                                    <h4 class="cart__content--title"><a href="product-details.html">Fresh-whole-fish</a></h4>
-                                                    <span class="cart__content--variant">COLOR: Blue</span>
-                                                    <span class="cart__content--variant">WEIGHT: 2 Kg</span>
+                                                    <h4 class="cart__content--title"><a href="product-details.html">{{$ws->barang->nama_barang}}</a></h4>
+                                                    <span class="cart__content--variant">Category: {{$ws->barang->category->name}}</span>
+                                                    <!-- <span class="cart__content--variant">WEIGHT: 2 Kg</span> -->
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="cart__table--body__list">
-                                            <span class="cart__price">£65.00</span>
+                                            <span class="cart__price">{{$ws->barang->price}}</span>
                                         </td>
                                         <td class="cart__table--body__list text-center">
                                             <span class="in__stock text__secondary">in stock</span>
                                         </td>
                                         <td class="cart__table--body__list text-right">
-                                            <a class="wishlist__cart--btn primary__btn" href="cart.html">Add To Cart</a>
+                                            <a class="wishlist__cart--btn primary__btn addcart"  data-barang-id="{{ $ws->barang->id}}" >Add To Cart</a>
                                         </td>
                                     </tr>
-                                    <tr class="cart__table--body__items">
+                                    @endforeach
+                                    <!-- <tr class="cart__table--body__items">
                                         <td class="cart__table--body__list">
                                             <div class="cart__product d-flex align-items-center">
                                                 <button class="cart__remove--btn" aria-label="search button" type="button"><svg fill="currentColor" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="16px" height="16px"><path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z"/></svg></button>
@@ -169,7 +172,7 @@
                                         <td class="cart__table--body__list text-right">
                                             <a class="wishlist__cart--btn primary__btn" href="cart.html">Add To Cart</a>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table> 
                             <div class="continue__shopping d-flex justify-content-between">
@@ -873,15 +876,300 @@
 
     <!-- Scroll top bar -->
     <button id="scroll__top"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M112 244l144-144 144 144M256 120v292"/></svg></button>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    
-  <!-- All Script JS Plugins here  -->
+    <script>
+        //ambilwihlist
+        $.ajax({
+    url: '/ambilwishlist',
+    method: 'GET',
+    success: function(response) {
+        console.log(response.jumlah_wishlist);
+        $('.wishlist_count').html(response.jumlah_wishlist);
+        // Mengakses data dari response JSON
+    //     var wishlistData = response.wishlist;
+    //     var profilPenjualData = response.profil_penjual;
+
+    //     // Lakukan operasi atau manipulasi data yang diperlukan
+    //     console.log(wishlistData);
+    //     console.log(profilPenjualData);
+    },
+    error: function(error) {
+        console.log('Gagal mengambil data wishlist:', error);
+    }
+});
+//ambilcart
+$.ajax({
+    url: '/getcartcount',
+    method: 'GET',
+    success: function(response) {
+        console.log(response.cart_count);
+        $(".cart_count").html(response.cart_count);
+        // $('.wishlist_count').html(response.jumlah_wishlist);
+        // Mengakses data dari response JSON
+    //     var wishlistData = response.wishlist;
+    //     var profilPenjualData = response.profil_penjual;
+
+    //     // Lakukan operasi atau manipulasi data yang diperlukan
+    //     console.log(wishlistData);
+    //     console.log(profilPenjualData);
+    },
+    error: function(error) {
+        console.log('Gagal mengambil data cart:', error);
+    }
+});
+
+
+
+
+        $('.hapuswish').on('click', function () {
+    var barangId = $(this).data('barang-id');
+
+    $.ajax({
+        url: '/hapuswishlist/' + barangId,
+        method: 'DELETE',
+        data: {
+            '_token': '{{ csrf_token() }}',
+        },
+        success: function (response) {
+            console.log(response.message);
+            location.reload();
+            // Tambahkan logika atau tindakan lain setelah wishlist berhasil dihapus
+        },
+        error: function (error) {
+            console.log('Gagal menghapus dari wishlist:', error);
+        }
+    });
+});
+        $('.addcart').on('click', function () {
+    var barangId = $(this).data('barang-id');
+    console.log(barangId);
+      
+    $.ajax({
+        url: '/addcart',
+        method: 'POST',
+        data: {
+            '_token': $('meta[name="csrf-token"]').attr('content'), // Mengambil token dari meta tag
+            'barang_id': barangId,
+        },
+        success: function (response) {
+         
+       
+            console.log(response.message);
+            if(response.message == "The item is already in the cart"){
+                Swal.fire({
+            title: 'Oops!',
+            text: response.message,
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 2000  // Jeda selama 2 detik
+        }).then(function () {
+            // Setelah jeda, redirect halaman
+            // setTimeout(function() {
+            //    location.reload();
+            // }, 2000);  // Sesuaikan jeda dengan timer di atas
+        });
+            }else{
+                var jumlahCart = $(".cart_count").html();
+        var intJumlahCart = parseInt(jumlahCart);
+        intJumlahCart += 1;
+        $(".cart_count").html(intJumlahCart.toString());
+                Swal.fire({
+            title: 'Success!',
+            text: response.message,
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 2000  // Jeda selama 2 detik
+        }).then(function () {
+            // Setelah jeda, redirect halaman
+            // setTimeout(function() {
+            //    location.reload();
+            // }, 2000);  // Sesuaikan jeda dengan timer di atas
+        });
+            }
+
+        },
+        error: function (error) {
+            console.log('Gagal menambah cart:', error);
+            Swal.fire({
+            title: 'Oops!',
+            text: response.message,
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 2000  // Jeda selama 2 detik
+        }).then(function () {
+            // Setelah jeda, redirect halaman
+            // setTimeout(function() {
+            //    location.reload();
+            // }, 2000);  // Sesuaikan jeda dengan timer di atas
+        });
+        }
+    });
+});
+</script>
+<script>
+$(document).ready(function () {
+    // Function to update total price
+    function updateTotalPrice(quantity, price) {
+        var totalPrice = quantity * price;
+        return totalPrice.toFixed(2); // Format to two decimal places
+    }
+
+    // Function to fetch data and update HTML
+    function fetchDataAndUpdateHTML() {
+        $.ajax({
+            url: '/getCartData',
+            method: 'GET',
+            success: function (response) {
+                console.log(response);
+                var minicartContainer = $('.minicart__product');
+                minicartContainer.empty();
+
+                $.each(response.cartData, function (index, cartItem) {
+                    var html = `
+                        <div class="minicart__product--items d-flex">
+                            <div class="minicart__thumbnail">
+                                <a href="#"><img src="{{ asset('storage/public/images/${cartItem.image}') }}" alt="${cartItem.nama_barang}"></a>
+                            </div>
+                            <div class="minicart__text">
+                                <h4 class="minicart__subtitle"><a href="#">${cartItem.nama_barang}</a></h4>
+                                <span class="color__variant"><b>Category:</b> ${cartItem.category_id}</span>
+                                <div class="minicart__price">
+                                    <span class="current__price">${cartItem.price}</span>
+                                </div>
+                                <div class="minicart__text--footer d-flex align-items-center">
+                                    <div class="quantity__box minicart__quantity">
+                                        <button type="button" class="quantity__value decrease" aria-label="quantity value" value="Decrease Value">-</button>
+                                        <label>
+                                            <input type="number" class="quantity__number" value="${cartItem.quantity}" data-product-id="${cartItem.barang_id}" />
+                                        </label>
+                                        <button type="button" class="quantity__value increase" aria-label="quantity value" value="Increase Value">+</button>
+                                    </div>
+                                    <button class="minicart__product--remove" aria-label="minicart remove btn">Remove</button>
+                                </div>
+                                <div class="minicart__total">
+                                    <span>Total: <span class="total-price">${updateTotalPrice(cartItem.quantity, cartItem.price)}</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    minicartContainer.append(html);
+                });
+            },
+            error: function (error) {
+                console.log('Error fetching cart data:', error);
+            }
+        });
+    }
+
+    // Initial fetch and update
+    fetchDataAndUpdateHTML();
+
+    // Quantity increase and decrease logic
+    $(document).on('click', '.quantity__value', function() {
+        // $('.quantity__box').on('click', '.quantity__value', function() {
+        var parentDiv = $(this).closest('.minicart__quantity');
+        var inputField = parentDiv.find('.quantity__number');
+        var priceElement = parentDiv.closest('.minicart__text').find('.current__price');
+        var totalElement = parentDiv.closest('.minicart__text').find('.total-price');
+        var productId = inputField.data('product-id');
+        var currentValue = parseInt(inputField.val());
+        var price = parseFloat(priceElement.text());
+
+        // Menentukan apakah menambah atau mengurangkan
+        var step = $(this).hasClass('increase') ? 1 : -1;
+
+        // Menentukan jumlah baru
+        var newQuantity = currentValue + step;
+        newQuantity = Math.max(newQuantity, 1); // Hanya memungkinkan nilai minimum 1
+
+        // Menghitung harga baru
+        var newPrice = newQuantity * price;
+
+        // Menyimpan nilai jumlah baru ke elemen input
+        inputField.val(newQuantity);
+
+        // Mengupdate harga di tampilan
+        totalElement.text(updateTotalPrice(newQuantity, price));
+
+        // Lakukan sesuatu dengan harga yang diperbarui
+        console.log('New Quantity:', newQuantity);
+        console.log('New Price:', newPrice);
+        // Perform AJAX to update the cart data
+    $.ajax({
+        url: '/updatecart', // Update with your actual endpoint
+        method: 'POST',
+        dataType: 'json',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Include the CSRF token
+        },
+        data: {
+            product_id: productId,
+            new_quantity: newQuantity,
+            new_total: newPrice
+        },
+        success: function(response) {
+            // Handle success response from the server
+            console.log(response);
+        },
+        error: function(error) {
+            // Handle error response from the server
+            console.error('Error updating cart:', error);
+        }
+    });
+    });
+  
+    $(document).on('input', '.quantity__number', function() {
+    var inputField = $(this);
+    var parentDiv = inputField.closest('.minicart__quantity');
+    var priceElement = parentDiv.closest('.minicart__text').find('.current__price');
+    var totalElement = parentDiv.closest('.minicart__text').find('.total-price');
+    var productId = inputField.data('product-id');
+    var currentValue = parseInt(inputField.val(), 10);
+    var price = parseFloat(priceElement.text());
+
+    if (!isNaN(currentValue)) {
+        // Update total in the UI
+        totalElement.text(updateTotalPrice(currentValue, price));
+
+        // Panggil AJAX untuk melakukan pembaruan data keranjang
+        $.ajax({
+            url: '/updatecart', // Ganti dengan URL endpoint Anda
+            method: 'POST',
+            dataType: 'json',
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Include the CSRF token
+        },
+            data: {
+                product_id: productId,
+                new_quantity: currentValue,
+                new_total: updateTotalPrice(currentValue, price)
+            },
+            success: function(response) {
+                // Tanggapi respons dari server
+                console.log(response);
+            },
+            error: function(error) {
+                // Tanggapi kesalahan
+                console.error('Error updating cart:', error);
+            }
+        });
+    } else {
+        // Handle invalid input
+        console.log('Invalid input for quantity');
+    }
+});
+});
+</script>
+
   <script src="{{ asset('Afurea') }}/assets/js/vendor/popper.js" defer="defer"></script>
   <script src="{{ asset('Afurea') }}/assets/js/vendor/bootstrap.min.js" defer="defer"></script>
   <script src="{{ asset('Afurea') }}/assets/js/plugins/swiper-bundle.min.js" defer="defer"></script>
   <script src="{{ asset('Afurea') }}/assets/js/plugins/glightbox.min.js" defer="defer"></script>
 
-  <!-- Customscript js -->
+ 
   <script src="{{ asset('Afurea') }}/assets/js/script.js" defer="defer"></script>
   
 </body>
