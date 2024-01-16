@@ -37,7 +37,9 @@
         <!-- my account section start -->
         <section class="my__account--section section--padding">
             <div class="container">
-                <p class="account__welcome--text">Hello, {{ Auth::User()->name }} welcome to your dashboard!</p>
+                @if (Auth::Check())
+                    <p class="account__welcome--text">Hello, {{ Auth::User()->name }} welcome to your dashboard!</p>
+                @endif
                 <div class="my__account--section__inner border-radius-10 d-flex">
 
                     @include('dashboardFurea.posts.sidebaraccount')

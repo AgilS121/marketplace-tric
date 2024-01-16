@@ -409,7 +409,7 @@
                                         <div class="product__items--content text-center">
 
                                             <h3 class="product__items--content__title h4"><a
-                                                    href="product-details.html">{{ $item->nama_barang }}</a></h3>
+                                                    href="/detail">{{ $item->nama_barang }}</a></h3>
                                             <div class="product__items--price">
                                                 <span class="current__price">Rp. {{ $item->price }}</span>
                                                 <span class="old__price">Rp.

@@ -178,4 +178,26 @@ class HomeFureaController extends Controller
             'barangterbaru' => $barangterbaru,
         ]);
     }
+
+    public function detail() {
+        $user = Auth::user();
+
+    // // Pastikan user telah memiliki profil penjual
+        if ($user) {
+            $pp = ProfilPenjual::where('user_id', $user->id)->first();
+        } else {
+            // Jika user tidak ditemukan, atur $profilPenjual menjadi null atau sesuaikan dengan kebutuhan
+            $pp = null;
+        }
+        $barang = Barang::all();
+        $barangterbaru = Barang::whereDate('created_at', Carbon::today())->orderBy('created_at', 'desc')->get();
+
+        return view('dashboardFurea.posts.detail',[
+            "title" => "fureaaa",
+            "activee" => "furea",
+            "pp" => $pp,
+            'barang' => $barang,
+            'barangterbaru' => $barangterbaru,
+        ]);
+    }
 }

@@ -183,3 +183,4 @@ Route::get('/wishlist', [HomeFureaController::class,'wishlist']);
 //     return view('dashboardFurea.posts.address',[]);
 // });
 Route::get('/address', [HomeFureaController::class,'address']);
+Route::get('/detail', [HomeFureaController::class,'detail']);
