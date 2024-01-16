@@ -21,6 +21,8 @@
 
     <!-- Custom Style CSS -->
     <link rel="stylesheet" href="{{ asset('Afurea') }}/assets/css/style.css">
+
+
 </head>
 
 <body>
@@ -45,23 +47,9 @@
                             <button class="new__address--btn primary__btn mb-25" type="button" data-open="modal1"
                                 href="javascript:void(0)">Add a new
                                 address</button>
-                            <div id="userAddress">
-                                <div class=" d-flex">
 
-                                    <div class="account__details two">
-                                        <h4 class="account__details--title">Default</h4>
-                                        <p class="account__details--desc">Admin <br> Dhaka <br> Dhaka 12119 <br>
-                                            Bangladesh
-                                        </p>
-                                    </div>
-                                    <div class="account__details--footer d-flex">
-                                        <button class="account__details--footer__btn" type="button" data-open="modal2"
-                                            href="javascript:void(0)">Edit</button>
-                                        <button class="account__details--footer__btn" type="button" data-open="modal2"
-                                            href="javascript:void(0)">Delete</button>
-                                    </div>
-                                </div>
-                                <a class="account__details--link" href="my-account-2.html">View Addresses (1)</a>
+                            <div id="userAddress">
+
 
                             </div>
 
@@ -118,72 +106,8 @@
     </div>
 
 
-    <div class="modal" id="modal2" data-animation="slideInUp">
-        <div class="modal-dialog quickview__main--wrapper">
-            <header class="modal-header quickview__header">
-                <button class="close-modal quickview__close--btn" aria-label="close modal" data-close>✕ </button>
-            </header>
-            <div class="quickview__inner">
-                <div class="">
 
-                    <div class="quickview__info">
-                        <form id="editProfileForm">
-                            @csrf
-                            <h2 class="product__details--info__title mb-15">Edit Your Address</h2>
-                            <input type="hidden" id="editProductId" name="id">
 
-                            <div class="form-group">
-                                <label for="full_name" class="product__details--info__desc mb-15">Full Name</label>
-                                <input type="text" class="form-control product__details--info__desc mb-15"
-                                    id="editfull_name" name="full_name">
-                            </div>
-                            <div class="form-group">
-                                <label for="description"
-                                    class="product__details--info__desc mb-15">Description</label>
-                                <textarea type="text" class="form-control product__details--info__desc mb-15" id="editdescription"
-                                    name="description"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="address" class="product__details--info__desc mb-15">Address</label>
-                                <textarea type="text" class="form-control product__details--info__desc mb-15" id="editaddress" name="address"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone" class="product__details--info__desc mb-15">Phone</label>
-                                <input type="text" class="form-control product__details--info__desc mb-15"
-                                    id="editphone" name="phone">
-                            </div>
-                            <div class="product__variant">
-                                <div class="quickview__variant--list quantity d-flex align-items-center mb-15">
-                                    <button class="primary__btn quickview__cart--btn" type="submit">Save</button>
-                                </div>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Confrim Delete Address</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Are You Sure Delete The Address?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Start footer section -->
     @include('dashboardFurea.layouts.footer')
@@ -191,20 +115,24 @@
 
     <!-- Scroll top bar -->
     <button id="scroll__top"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
-            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                stroke-width="48" d="M112 244l144-144 144 144M256 120v292" />
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48"
+                d="M112 244l144-144 144 144M256 120v292" />
         </svg></button>
 
 
     <!-- All Script JS Plugins here  -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
     <script src="{{ asset('Afurea') }}/assets/js/vendor/popper.js" defer="defer"></script>
     <script src="{{ asset('Afurea') }}/assets/js/vendor/bootstrap.min.js" defer="defer"></script>
+    <!-- ... other scripts ... -->
+
     <script src="{{ asset('Afurea') }}/assets/js/plugins/swiper-bundle.min.js" defer="defer"></script>
     <script src="{{ asset('Afurea') }}/assets/js/plugins/glightbox.min.js" defer="defer"></script>
 
     <!-- Customscript js -->
     <script src="{{ asset('Afurea') }}/assets/js/script.js" defer="defer"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -222,48 +150,37 @@
                         // Jika data kosong, tambahkan pesan default
                         userAddressHtml += '<p class="account__details--desc">No address available</p>';
                     } else {
-                        // Ambil data dari objek pertama (asumsi hanya ada satu profil per user)
-                        var userProfile = response[0];
+                        // Iterate through each profile in the response
+                        response.forEach(function(userProfile) {
+                            // Tampilkan data alamat untuk setiap profil
+                            userAddressHtml += '<div class="d-flex">';
+                            userAddressHtml += '<div class="account__details two">';
+                            userAddressHtml += '<h4 class="account__details--title">' +
+                                userProfile.full_name + '</h4>';
+                            userAddressHtml += '<p class="account__details--desc">' +
+                                userProfile.description + '<br>' +
+                                userProfile.address + '<br>' + userProfile.phone + '</p>';
+                            userAddressHtml += '</div>';
+                            userAddressHtml += '<div class="account__details--footer d-flex">';
+                            // Tambahkan tombol Edit dan Hapus dengan menyertakan data-product-id
+                            userAddressHtml +=
+                                '<button class="account__details--footer__btn btn-edit"  type="button" data-product-id="' +
+                                userProfile.id + '">Edit</button>';
+                            userAddressHtml +=
+                                '<button class="account__details--footer__btn btn-delete"    type="button" data-product-id="' +
+                                userProfile.id + '">Delete</button>';
 
-                        // Jika ada data, tampilkan data alamat
-                        userAddressHtml += '<div class="d-flex">';
-                        userAddressHtml += '<div class="account__details two">';
-                        userAddressHtml += '<h4 class="account__details--title">' + userProfile
-                            .full_name + '</h4>';
-                        userAddressHtml += '<p class="account__details--desc">' + userProfile
-                            .description + '<br>' +
-                            userProfile.address + '<br>' + userProfile.phone + '</p>';
-                        userAddressHtml += '</div>';
-                        userAddressHtml += '<div class="account__details--footer d-flex">';
-                        // Tambahkan tombol Edit dan Hapus dengan menyertakan data-product-id
-                        userAddressHtml +=
-                            '<button class="account__details--footer__btn btn-edit" data-open="modal2" href="javascript:void(0)" type="button" data-product-id="' +
-                            userProfile.id + '">Edit</button>';
-                        userAddressHtml +=
-                            '<button class="account__details--footer__btn btn-delete" data-target="#deleteModal" href="javascript:void(0)"  type="button" data-product-id="' +
-                            userProfile.id + '">Delete</button>';
-                        userAddressHtml += '</div>';
-                        userAddressHtml += '</div>';
+                            userAddressHtml += '</div>';
+                            userAddressHtml += '</div>';
+                        });
                     }
 
                     // Update View Addresses link based on the count of profiles
                     var viewAddressesLink =
-                        '<a class="account__details--link" href="my-account-2.html">View Addresses (' +
+                        '<a class="account__details--link" href="">View Addresses (' +
                         response.length + ')</a>';
                     $('#userAddress').html(userAddressHtml + viewAddressesLink);
 
-                    // Handle click events for the Edit and Delete buttons
-                    $('.btn-edit').click(function() {
-                        var productId = $(this).data('product-id');
-                        // Implement logic to handle Edit button click with productId
-                        console.log('Edit button clicked for product ID:', productId);
-                    });
-
-                    $('.btn-delete').click(function() {
-                        var productId = $(this).data('product-id');
-                        // Implement logic to handle Delete button click with productId
-                        console.log('Delete button clicked for product ID:', productId);
-                    });
                 },
                 error: function(error) {
                     // Tangani kesalahan jika ada
@@ -271,6 +188,126 @@
                 }
             });
 
+
+            $('#userAddress').on('click', '.btn-edit', function() {
+                var dataId = $(this).data('product-id');
+                console.log('Clicked Edit Button for ID:', dataId);
+
+                $.ajax({
+                    url: 'getProfileById/' + dataId,
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(product) {
+                        console.log('Edit Profile Data:', product);
+
+                        // Populate the edit modal with product details
+                        $('#editProductId').val(product.id);
+                        $('#editfull_name').val(product.full_name);
+                        $('#editdescription').val(product.description);
+                        $('#editaddress').val(product.address);
+                        $('#editphone').val(product.phone);
+
+                        // Show the edit form next to the existing address
+                        var editFormHtml = '';
+
+                        editFormHtml += '<div class="account__details--footer d-flex">';
+                        // Add the edit form next to the existing address
+                        editFormHtml +=
+                            '<form id="editProfileForm" class="edit-profile-form" style="margin-left: 20px;">';
+                        editFormHtml +=
+                            '<input type="hidden" id="editProductId" name="id" value="' +
+                            product.id + '">';
+                        editFormHtml +=
+                            '<div class="form-group"><label for="full_name" class="product__details--info__desc mb-15"  >Full Name</label>';
+                        editFormHtml +=
+                            '<input type="text" class="form-control product__details--info__desc mb-15" id="editfull_name" name="full_name" value="' +
+                            product.full_name + '">';
+                        editFormHtml += '</div>';
+
+                        editFormHtml +=
+                            '<div class="form-group"><label for="description" class="product__details--info__desc mb-15">Description</label>';
+                        editFormHtml +=
+                            '<textarea type="text" class="form-control product__details--info__desc mb-15" id="editdescription" name="description">' +
+                            product.description + '</textarea>';
+                        editFormHtml += '</div>';
+
+                        editFormHtml +=
+                            '<div class="form-group"><label for="address" class="product__details--info__desc mb-15">Address</label>';
+                        editFormHtml +=
+                            '<textarea type="text" class="form-control product__details--info__desc mb-15" id="editaddress" name="address">' +
+                            product.address + '</textarea>';
+                        editFormHtml += '</div>';
+
+                        editFormHtml +=
+                            '<div class="form-group"><label for="phone" class="product__details--info__desc mb-15">Phone Number</label>';
+                        editFormHtml +=
+                            '<input type="text" class="form-control product__details--info__desc mb-15" id="editphone" name="phone" value="' +
+                            product.phone + '">';
+                        editFormHtml += '</div>';
+                        // ... (add other form fields as needed)
+                        editFormHtml +=
+                            '<div class="quickview__variant--list quantity d-flex align-items-center mb-15">';
+                        editFormHtml +=
+                            '<button class="primary__btn quickview__cart--btn" type="submit">Save</button>';
+                        editFormHtml += '</div>';
+                        editFormHtml += '</form>';
+                        editFormHtml += '</div>';
+                        editFormHtml += '</div>';
+
+                        // Replace the existing address with the edit form
+                        $('#userAddress').html(editFormHtml);
+                    },
+                    error: function(error) {
+                        console.error('Error:', error);
+                    }
+                });
+            });
+
+
+            $('#editProfileForm').submit(function(e) {
+                e.preventDefault();
+
+                // Get the edited product details from the form
+                var editProfileData = new FormData(this);
+
+                // Tambahkan CSRF token ke FormData
+                editProfileData.append('_token', $('meta[name="csrf-token"]').attr('content'));
+
+                // Assuming you have an API endpoint to update the product
+                $.ajax({
+                    url: 'updateProfile', // Adjust the endpoint accordingly
+                    method: 'POST',
+                    data: editProfileData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    cache: false,
+                    success: function(response) {
+                        // Tanggapan dari server ketika berhasil
+                        console.log(response);
+                        if (response.message === 'Profile updated successfully') {
+                            Swal.fire({
+                                title: 'Success!',
+                                text: response.message,
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                // Tambahkan logika di sini setelah pengguna menekan OK
+                                setTimeout(function() {
+                                    // Use window.location to redirect after successful update
+                                    window.location.reload();
+                                }, 1000);
+                            });
+                        } else {
+                            // Handle other response cases if needed
+                        }
+                    },
+                    error: function(error) {
+                        // Handle error
+                        console.error('Error:', error.responseJSON);
+                    }
+                });
+            });
 
         });
 
@@ -323,110 +360,24 @@
 
         });
 
-        $('#userAddress').on('click', '.btn-edit', function() {
-            console.log("oke");
-            var dataId = $(this).data('product-id');
-            console.log('Edit product with ID:', dataId);
 
 
 
-            // Assuming you have an API endpoint to get product details by ID
-            $.ajax({
-                url: 'getProfileById/' + dataId,
-                method: 'GET',
-                dataType: 'json',
-                success: function(product) {
-                    console.log(product);
-                    // Populate the edit modal with product details
-
-                    $('#editProductId').val(product.id);
-                    $('#editfull_name').val(product.full_name);
-                    $('#editdescription').val(product.description);
-                    $('#editaddress').val(product.address);
-                    $('#editphone').val(product.phone);
-
-                    // Populate other input fields with product details
-
-                    // Show the edit modal
-                    // $('#editProductModal').modal('show');
-                    $('#modal2').modal('show');
-
-                },
-                error: function(error) {
-                    console.error('Error:', error);
-                }
-            });
-        });
 
 
-        $('#editProfileForm').submit(function(e) {
-            e.preventDefault();
-
-            // Get the edited product details from the form
-
-            var editedProductData = new FormData(this);
-
-            // Tambahkan CSRF token ke FormData
-            editedProductData.append('_token', $('meta[name="csrf-token"]').attr('content'));
-
-
-
-            // Assuming you have an API endpoint to update the product
-            $.ajax({
-                url: 'adminproduct/updateProduct', // Adjust the endpoint accordingly
-                method: 'POST',
-                data: editedProductData,
-                dataType: 'json',
-                contentType: false,
-                processData: false,
-                cache: false,
-                success: function(response) {
-                    // Tanggapan dari server ketika berhasil
-                    console.log(response);
-                    if (response.message === 'Product updated successfully') {
-                        Swal.fire({
-                            title: 'Success!',
-                            text: response.message,
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        }).then((result) => {
-                            // Tambahkan logika di sini setelah pengguna menekan OK
-                            setTimeout(function() {
-                                location.reload();
-                            }, 1000);
-
-                        });
-                    };
-                },
-                error: function(error) {
-                    // Handle error
-                    console.error('Error:', error.responseJSON);
-                }
-            });
-
-
-
-        });
-
-
-        $('#userAddress').on('click', '.btn-danger', function() {
-            console.log("oke");
-            var productIdToDelete = $(this).data('product-id');
-            console.log(productIdToDelete);
-
-            // Set the product ID in the modal for reference
-            $('#confirmDeleteBtn').data('product-id', productIdToDelete);
-
-            // Show the delete confirmation modal
+        $('#userAddress').on('click', '.btn-delete', function() {
+            var profileIdToDelete = $(this).data('product-id');
+            $('#confirmDeleteBtn').data('product-id', profileIdToDelete);
             $('#deleteModal').modal('show');
         });
+
 
         $('#confirmDeleteBtn').on('click', function() {
             var productIdToDelete = $(this).data('product-id');
 
             // Perform Ajax request to delete the product
             $.ajax({
-                url: 'deleteProfile/' + productIdToDelete,
+                url: '/deleteProfile/' + productIdToDelete,
                 method: 'DELETE',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
