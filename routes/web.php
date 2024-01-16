@@ -4,6 +4,7 @@ use App\Models\categories;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HomeFureaController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\Auth\LoginController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\AdminProduct;
 use App\Http\Controllers\ProfilPenjualController;
 use App\Http\Controllers\CarouselController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +50,7 @@ Route::get('/dashboard', [HomeController::class,'index']);
 Route::get('/adminproduct', [AdminProduct::class,'index']);
 Route::get('/adminproduct', [AdminProduct::class,'index']);
 Route::get('/adminproduct/ambilbarang', [AdminProduct::class,'ambilbarang']);
+Route::get('/adminproduct/ambilbarangwhereid', [AdminProduct::class,'ambilbarangwhereid']);
 Route::get('/adminproduct/getProductById/{id}', [AdminProduct::class,'getProductById']);
 Route::post('/adminproduct/updateProduct', [AdminProduct::class,'updateProduct']);
 Route::post('/adminproduct/store', [AdminProduct::class,'store']);
@@ -73,6 +76,11 @@ Route::post('/updatePenjual', [KonfigurasiController::class,'updatePenjual']);
 Route::post('/updateIconPenjual', [KonfigurasiController::class,'updateIconPenjual']);
 Route::post('/updateLogoPenjual', [KonfigurasiController::class,'updateLogoPenjual']);
 
+Route::get('/ambilprofilewhereid', [ProfileController::class,'ambilprofilewhereid']);
+Route::get('/getProfileById/{id}', [ProfileController::class,'getProfileById']);
+Route::post('/updateProfile', [ProfileController::class,'updateProfile']);
+Route::post('/addprofil', [ProfileController::class,'store']);
+Route::delete('/deleteProfile/{id}', [ProfileController::class,'deleteProfile']);
 
 Route::get('/carousel', [CarouselController::class, 'index']);
 
@@ -91,6 +99,7 @@ Route::controller(LoginController::class)->group(function(){
 
 Route::get('/register', [RegisterController::class, 'index']);
 Route::post('/register', [RegisterController::class, 'store']);
+Route::post('/updateProfile', [RegisterController::class, 'updateProfile']);
 // Route::get('/login', [LoginController::class, 'index'])
 // ->name('login')->middleware('guest');
 // Route::Post('/login', [LoginController::class, 'authenticate']);
@@ -118,13 +127,14 @@ Route::get('/shopus', function () {
 
 // Route dashboard furea
 
-Route::get('/', function () {
-    return view('dashboardFurea.layouts.app',[
-        "title" => "fureaaa",
-        "activee" => "furea"
-    ]);
-});
+// Route::get('/', function () {
+//     return view('dashboardFurea.layouts.app',[
+//         "title" => "fureaaa",
+//         "activee" => "furea"
+//     ]);
+// });
 Route::get('/', [BarangController::class,'index']);
+Route::get('/', [HomeFureaController::class,'index']);
 
 // Route dashboard nest
 Route::get('/nest', function () {
@@ -136,30 +146,40 @@ Route::get('/nest', function () {
 
 // Route Furea
 // Route dashboard nest
-Route::get('/shopfurea', function () {
-    return view('dashboardFurea.posts.index',[]);
-});
+// Route::get('/shopfurea', function () {
+//     return view('dashboardFurea.posts.index',[]);
+// });
+Route::get('/shopfurea', [HomeFureaController::class,'shopfurea']);
+
 Route::get('/product', function () {
     return view('dashboardFurea.posts.show',[]);
 });
 Route::get('/blog', function () {
     return view('dashboardFurea.posts.blog',[]);
 });
-Route::get('/about', function () {
-    return view('dashboardFurea.posts.about',[]);
-});
-Route::get('/contact', function () {
-    return view('dashboardFurea.posts.contact',[]);
-});
+// Route::get('/about', function () {
+//     return view('dashboardFurea.posts.about',[]);
+// });
+// Route::get('/contact', function () {
+//     return view('dashboardFurea.posts.contact',[]);
+// });
+Route::get('/about', [HomeFureaController::class,'about']);
+Route::get('/contact', [HomeFureaController::class,'contact']);
+
 Route::get('/loginb', function () {
     return view('dashboardFurea.auth.login',[]);
 });
-Route::get('/myaccount', function () {
-    return view('dashboardFurea.posts.account',[]);
-});
-Route::get('/wishlist', function () {
-    return view('dashboardFurea.posts.wishlist',[]);
-});
-Route::get('/address', function () {
-    return view('dashboardFurea.posts.address',[]);
-});
+// Route::get('/myaccount', function () {
+//     return view('dashboardFurea.posts.account',[]);
+// });
+Route::get('/myaccount', [HomeFureaController::class,'account']);
+Route::get('/myprofile', [HomeFureaController::class,'myprofile']);
+
+// Route::get('/wishlist', function () {
+//     return view('dashboardFurea.posts.wishlist',[]);
+// });
+Route::get('/wishlist', [HomeFureaController::class,'wishlist']);
+// Route::get('/address', function () {
+//     return view('dashboardFurea.posts.address',[]);
+// });
+Route::get('/address', [HomeFureaController::class,'address']);

@@ -13,8 +13,23 @@
                 </a>
             </div>
             <div class="main__logo">
-                <h1 class="main__logo--title"><a class="main__logo--link" href="/"><img class="main__logo--img"
-                            width="150px" src="img/LogoTRIC.png" alt="logo-img"></a></h1>
+                <h1 class="main__logo--title"><a class="main__logo--link" href="/">
+                        @if (Auth::check())
+                            @if ($pp->store_logo)
+                                <img class="main__logo--img" width="150px"
+                                    src="{{ asset('storage/public/images/' . $pp->store_logo) }}" alt="logo-img"
+                                    style="height: 100px">
+                            @else
+                                <img class="main__logo--img" width="150px" src="{{ asset('img/LogoTRIC.png') }}"
+                                    alt="default-logo-img">
+                            @endif
+                        @else
+                            <img class="main__logo--img" width="150px" src="{{ asset('img/LogoTRIC.png') }}"
+                                alt="default-logo-img">
+                        @endif
+
+
+                    </a></h1>
             </div>
             <div class="header__menu d-none d-lg-block">
                 <nav class="header__menu--navigation style3">
@@ -100,8 +115,24 @@
                         <li class="header__sub--menu__items"></li>
                         <li class="header__sub--menu__items"></li>
 
-                        <a href="/regispenjual" class="btn btn-primary btn-block mb-2">Daftar Penjual</a>
+                        {{-- <a href="/regispenjual" class="btn btn-primary btn-block mb-2">Daftar Penjual</a> --}}
+                        <br>
+                        @if (Auth::check())
+                            @if (isset($pp))
+                                {{-- Jika ada user_id di tabel profile_penjual, tampilkan halaman penjual --}}
+                                <a href="/dashboard" class="btn btn-primary btn-block mb-2">Go To Dashboard Seller</a>
+                                <br>
+                                <a href="/myaccount" class="btn btn-success btn-block mb-2">My Account</a>
+                            @else
+                                {{-- Jika tidak ada user_id di tabel profile_penjual, tampilkan tautan untuk mendaftar sebagai penjual --}}
+                                <a href="/regispenjual" class="btn btn-primary btn-block mb-2">Daftar Penjual</a>
+                            @endif
+                        @else
+                            <img class="main__logo--img" width="150px" src="{{ asset('img/LogoTRIC.png') }}"
+                                alt="default-logo-img">
+                        @endif
 
+                        <br>
                         <form method="POST" action="/logout">
 
                             @csrf
@@ -242,3 +273,59 @@
 <!-- End serch box area -->
 
 <!-- End header area -->
+<div class="offcanvas__header" tabindex="-1">
+    <div class="offcanvas__inner">
+        <div class="offcanvas__logo">
+            <a class="offcanvas__logo_link" href="index.html">
+                @if (Auth::check())
+                    @if ($pp->store_logo)
+                        <img class="main__logo--img" width="150px"
+                            src="{{ asset('storage/public/images/' . $pp->store_logo) }}" alt="logo-img"
+                            style="height: 100px">
+                    @else
+                        <img class="main__logo--img" width="150px" src="{{ asset('img/LogoTRIC.png') }}"
+                            alt="default-logo-img">
+                    @endif
+                @else
+                    <img class="main__logo--img" width="150px" src="{{ asset('img/LogoTRIC.png') }}"
+                        alt="default-logo-img">
+                @endif
+            </a>
+            <button class="offcanvas__close--btn" aria-label="offcanvas close btn">close</button>
+        </div>
+        <nav class="offcanvas__menu">
+            <ul class="offcanvas__menu_ul">
+                <li class="offcanvas__menu_li">
+                    <a class="offcanvas__menu_item" href="/">Home</a>
+                </li>
+                <li class="offcanvas__menu_li">
+                    <a class="offcanvas__menu_item" href="/shopfurea">Shop</a>
+                </li>
+
+                <li class="offcanvas__menu_li"><a class="offcanvas__menu_item" href="/about">About</a></li>
+                <li class="offcanvas__menu_li"><a class="offcanvas__menu_item" href="/contact">Contact</a></li>
+            </ul>
+            <div class="offcanvas__account--items">
+                @if (!Auth::check())
+                    <a class="offcanvas__account--items__btn d-flex align-items-center" href="/login">
+                        <span class="offcanvas__account--items__icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20.51" height="19.443"
+                                viewBox="0 0 512 512">
+                                <path
+                                    d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z"
+                                    fill="none" stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="32" />
+                                <path
+                                    d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z"
+                                    fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+                            </svg>
+                        </span>
+                        <span class="offcanvas__account--items__label">Login / Register</span>
+                    </a>
+                @endif
+
+            </div>
+
+        </nav>
+    </div>
+</div>

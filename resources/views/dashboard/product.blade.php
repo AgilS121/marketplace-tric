@@ -103,9 +103,9 @@
                             <input type="text" class="form-control" id="userID" name="user_id">
                         </div>
                         <!-- <div class="form-group">
-                                        <label for="productImage">Image</label>
-                                        <input type="text" class="form-control" id="productImage" name="productImage">
-                                    </div> -->
+                                                    <label for="productImage">Image</label>
+                                                    <input type="text" class="form-control" id="productImage" name="productImage">
+                                                </div> -->
                         <div class="form-group">
                             <label for="productSlug">Slug</label>
                             <input type="text" class="form-control" id="productSlug" name="slug">
@@ -115,9 +115,9 @@
                             <textarea class="form-control" id="productBody" name="body"></textarea>
                         </div>
                         <!-- <div class="form-group">
-                                        <label for="productPublishedAt">Published At</label>
-                                        <input type="text" class="form-control" id="productPublishedAt" name="productPublishedAt">
-                                    </div> -->
+                                                    <label for="productPublishedAt">Published At</label>
+                                                    <input type="text" class="form-control" id="productPublishedAt" name="productPublishedAt">
+                                                </div> -->
                         <!-- More input fields for created_at and updated_at if needed -->
 
                         <button type="submit" class="btn btn-primary">Save</button>
@@ -170,9 +170,9 @@
                             <input type="text" class="form-control" id="editProductUserId" name="user_id">
                         </div>
                         <!-- <div class="form-group">
-                                        <label for="productImage">Image</label>
-                                        <input type="text" class="form-control" id="productImage" name="productImage">
-                                    </div> -->
+                                                    <label for="productImage">Image</label>
+                                                    <input type="text" class="form-control" id="productImage" name="productImage">
+                                                </div> -->
                         <div class="form-group">
                             <label for="productSlug">Slug</label>
                             <input type="text" class="form-control" id="editProductSlug" name="slug">
@@ -229,32 +229,11 @@
             });
             //ambilbarang
             $.ajax({
-                url: 'adminproduct/ambilbarang', // Ganti dengan URL yang sesuai dengan struktur rute Anda
+                url: 'adminproduct/ambilbarangwhereid', // Ganti dengan URL yang sesuai dengan struktur rute Anda
                 method: 'GET',
                 dataType: 'json',
                 success: function(response) {
                     dataTable.clear();
-
-                    // Add new rows from the AJAX response
-                    $.each(response, function(index, product) {
-                        dataTable.row.add([
-                            product.id,
-                            product.nama_barang,
-                            product.price,
-                            product.category_name,
-                            '<img src="/storage/public/images/' + product.image +
-                            '" alt="Product Image" style="max-width: 50px; max-height: 50px;">',
-                            '<button class="btn btn-warning btn-edit mx-1" data-toggle="modal" data-target="#editProductModal" data-product-id="' +
-                            product.id +
-                            '"> <i class="fas fa-edit"></i> Edit</button>' +
-                            '<button class="btn btn-danger mx-1" data-toggle="modal" data-target="#deleteModal" data-product-id="' +
-                            product.id +
-                            '"> <i class="fas fa-trash"></i> Delete</button>'
-                        ]);
-                    });
-
-                    //ambilkategori
-
 
                     // Add new rows from the AJAX response
                     $.each(response, function(index, product) {
@@ -274,16 +253,15 @@
                         ]);
                     });
 
-
                     // Draw the DataTable to reflect changes
                     dataTable.draw();
-                    // Di sini, Anda dapat menampilkan data ke dalam elemen HTML atau melakukan operasi lainnya sesuai kebutuhan
                 },
                 error: function(error) {
                     // Handle kesalahan jika ada
                     console.error('Error:', error);
                 }
             });
+
         });
 
         //ambildataketika edit

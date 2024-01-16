@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -95,4 +96,41 @@ class RegisterController extends Controller
 
         return redirect('/login');
     }
+
+
+    public function updateProfile(Request $request)
+{
+    try {
+        // Get the authenticated user
+        $user = Auth::user();
+
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        // Periksa apakah ada file gambar yang diunggah
+        if ($request->hasFile('image')) {
+            // Proses upload gambar
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/images', $imageName);
+
+            // Hapus gambar lama dari penyimpanan
+            if ($user->image) {
+                Storage::delete('public/images/' . $user->image);
+            }
+
+            // Update atribut gambar pada user
+            $user->image = $imageName;
+            $user->save();
+        }
+
+        // Jika penyimpanan berhasil, kirim respons JSON sukses
+        return Redirect::to('/myprofile')->with('success', 'Data updated successfully');
+    } catch (\Exception $e) {
+        // Tangkap dan tangani kesalahan
+        return response()->json(['message' => 'Error updating data', 'error' => $e->getMessage()], 500);
+    }
+}
 }

@@ -772,7 +772,7 @@ const offcanvasHeader = function () {
         !event.target.closest(".offcanvas__header") &&
         !event.target.classList.contains(".offcanvas__header".replace(/\./, ""))
       ) {
-        offcanvasHeader.classList.remove("open");
+        // offcanvasHeader.classList.remove("open");
         body.classList.remove("mobile_menu_open");
       }
     }
@@ -780,7 +780,7 @@ const offcanvasHeader = function () {
   /* Remove Mobile Menu Open Class & Hide Mobile Menu When Window Width in More Than 991 */
   window.addEventListener("resize", function () {
     if (window.outerWidth >= 992) {
-      offcanvasHeader.classList.remove("open");
+    //   offcanvasHeader.classList.remove("open");
       body.classList.remove("mobile_menu_open");
     }
   });

@@ -25,9 +25,11 @@ class AdminProduct extends Controller
         }
 
 
+
         return view('dashboard.product',[
             "title" => "product",
             "pp" => $pp
+
         ]);
     }
     public function ambilbarang(){
@@ -39,6 +41,22 @@ class AdminProduct extends Controller
     // Mengembalikan data dalam format JSON
     return response()->json($barangData);
     }
+
+    public function ambilbarangwhereid()
+{
+    $user = Auth::user();
+
+    $barangData = DB::table('barangs')
+            ->join('categories', 'barangs.category_id', '=', 'categories.id')
+            ->where('barangs.user_id', '=', $user->id)
+            ->select('barangs.*', 'categories.name as category_name')
+            ->get();
+
+    // Mengembalikan data dalam format JSON
+    return response()->json($barangData);
+}
+
+
     public function getProductById($id)
     {
         // Assuming you have a 'Barang' model
