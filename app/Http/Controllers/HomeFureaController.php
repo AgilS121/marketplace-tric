@@ -11,6 +11,16 @@ use App\Models\Category;
 
 class HomeFureaController extends Controller
 {
+    private function getUserAndProfilPenjual() {
+        $user = Auth::user();
+        $pp = $user ? ProfilPenjual::where('user_id', $user->id)->first() : null;
+
+        return [
+            'user' => $user,
+            'pp' => $pp,
+        ];
+    }
+
     public function index()
     {
         $user = Auth::user();
@@ -25,6 +35,10 @@ class HomeFureaController extends Controller
         $barang = Barang::all();
         $barangterbaru = Barang::whereDate('created_at', Carbon::today())->orderBy('created_at', 'desc')->get();
         $categories = Category::all();
+        $barangcarousel = Barang::leftJoin('categories', 'barangs.category_id', '=', 'categories.id')
+    ->inRandomOrder()
+    ->limit(3)
+    ->get(['barangs.*', 'categories.name']);
 
         return view('dashboardFurea.layouts.app',[
             "title" => "fureaaa",
@@ -32,7 +46,8 @@ class HomeFureaController extends Controller
             "pp" => $pp,
             'barang' => $barang,
             'barangterbaru' => $barangterbaru,
-            'categories' => $categories
+            'categories' => $categories,
+            'dataCarousel' => $barangcarousel,
         ]);
     }
 
@@ -179,7 +194,7 @@ class HomeFureaController extends Controller
         ]);
     }
 
-    public function detail() {
+    public function detail($slug) {
         $user = Auth::user();
 
     // // Pastikan user telah memiliki profil penjual
@@ -189,7 +204,7 @@ class HomeFureaController extends Controller
             // Jika user tidak ditemukan, atur $profilPenjual menjadi null atau sesuaikan dengan kebutuhan
             $pp = null;
         }
-        $barang = Barang::all();
+        $barang = Barang::where('slug', $slug)->get();
         $barangterbaru = Barang::whereDate('created_at', Carbon::today())->orderBy('created_at', 'desc')->get();
 
         return view('dashboardFurea.posts.detail',[

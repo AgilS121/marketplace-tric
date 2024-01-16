@@ -15,7 +15,7 @@ class Barang extends Model
 
     //Variabel yg boleh diisi
     // protected $fillable = ['title', 'excerpt', 'body'];
-    
+
     //variabel yg tidak bole diisi
     protected $guarded = ['id'];
     protected $load = ['post','category', 'user'];//n+1 problem
@@ -35,14 +35,14 @@ class Barang extends Model
             return $query->whereHas('category', function($query) use ($category){
                 $query->where('slug', $category);
             });
-        }); 
+        });
 
         $query->when($filters['user'] ?? false, function($query, $user){
             return $query->whereHas('user', function($query) use ($user){
                 $query->where('username', $user);
             });
-        }); 
- 
+        });
+
     }
 
     public function category()
@@ -69,4 +69,10 @@ class Barang extends Model
     //         ]
     //     ];
     // }
+    // Di dalam model Barang
+public function wishlists()
+{
+    return $this->hasMany(Wishlist::class, 'barang_id');
+}
+
 }

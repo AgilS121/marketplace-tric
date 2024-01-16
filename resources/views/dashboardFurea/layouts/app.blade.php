@@ -129,46 +129,56 @@
                     <div class="col">
                         <div class="hero__slider3--inner hero__slider--activation swiper">
                             <div class="hero__slider3--wrapper swiper-wrapper">
-                                <div class="swiper-slide ">
-                                    <div class="hero__slider3--items hero__slider--bg3 slider1">
-                                        <div class="slider__content3 padding-left">
-                                            <h2 class="slider__content3--maintitle">Make Beautiful Home <br>
-                                                With Moon Sofa</h2>
-                                            <p class="slider__content3--desc mb-35">Great furniture can bring beauty at
-                                                your home, <br>
-                                                So buy our popular and stylish furniture. </p>
-                                            <a class="slider__content3--btn primary__btn btn__style3" href="shop.html"
-                                                rel="nofollow">Order Now</a>
+                                @foreach ($dataCarousel as $dtc)
+                                    @if ($loop->index == 0)
+                                        <div class="swiper-slide" style="overflow : hidden; height: 40rem;">
+                                            <div style="background-image: url('{{ asset('storage/public/images/' . $dtc->image) }}');"
+                                                class="hero__slider3--items hero__slider--bg3 slider1">
+                                                <div class="slider__content3 padding-left">
+                                                    <h2 class="slider__content3--maintitle">
+
+                                                        {{ $dtc->nama_barang }}</h2>
+                                                    <p class="slider__content3--desc mb-40">{{ $dtc->body }}<br>
+                                                        {{ $dtc->name }}</p>
+                                                    <a class="slider__content3--btn primary__btn btn__style3"
+                                                        href="shop.html" rel="nofollow">Order Now</a>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide ">
-                                    <div class="hero__slider3--items hero__slider--bg3 slider2">
-                                        <div class="slider__content3 padding-left text-center">
-                                            <h2 class="slider__content3--maintitle">Make Beautiful Home <br>
-                                                With Moon Sofa</h2>
-                                            <p class="slider__content3--desc color-black mb-35">Great furniture can
-                                                bring beauty at your home, <br>
-                                                So buy our popular and stylish furniture. </p>
-                                            <a class="slider__content3--btn primary__btn btn__style3" href="shop.html"
-                                                rel="nofollow">Order Now</a>
+                                    @elseif($loop->index == 1)
+                                        <div class="swiper-slide " style="overflow : hidden; height: 40rem;">
+                                            <div style="background-image: url('{{ asset('storage/public/images/' . $dtc->image) }}');"
+                                                class="hero__slider3--items hero__slider--bg2 slider2">
+                                                <div class="slider__content3 padding-left text-center">
+                                                    <h2 class="slider__content3--maintitle">
+
+                                                        {{ $dtc->nama_barang }}</h2>
+                                                    <p class="slider__content3--desc mb-40">{{ $dtc->body }}<br>
+                                                        {{ $dtc->name }}</p>
+                                                    <a class="slider__content3--btn primary__btn btn__style3"
+                                                        href="shop.html" rel="nofollow">Order Now</a>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide ">
-                                    <div class="hero__slider3--items hero__slider--bg3 slider3">
-                                        <div class="slider__content3 padding-left">
-                                            <h2 class="slider__content3--maintitle">Make Beautiful Home <br>
-                                                With Moon Sofa</h2>
-                                            <p class="slider__content3--desc mb-35">Great furniture can bring beauty at
-                                                your home, <br>
-                                                So buy our popular and stylish furniture. </p>
-                                            <a class="slider__content3--btn primary__btn btn__style3" href="shop.html"
-                                                rel="nofollow">Order Now</a>
+                                    @elseif($loop->index == 2)
+                                        <div class="swiper-slide" style="overflow : hidden; height: 40rem;">
+                                            <div style="background-image: url('{{ asset('storage/public/images/' . $dtc->image) }}'); display: flex; justify-content: flex-end;"
+                                                class="hero__slider3--items hero__slider--bg3 slider3">
+                                                <div class="slider__content3 padding-right text-right">
+                                                    <h2 class="slider__content3--maintitle">
+
+                                                        {{ $dtc->nama_barang }}</h2>
+                                                    <p class="slider__content3--desc mb-40">{{ $dtc->body }}<br>
+                                                        {{ $dtc->name }}</p>
+                                                    <a class="slider__content3--btn primary__btn btn__style3"
+                                                        href="shop.html" rel="nofollow">Order Now</a>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
                             </div>
+                            @endif
+                            @endforeach
+
                             <div class="swiper__nav--btn swiper-button-next"></div>
                             <div class="swiper__nav--btn swiper-button-prev"></div>
                         </div>
@@ -307,7 +317,7 @@
                                             <div class="product__items--price">
                                                 <span class="current__price">Rp. {{ $item->price }}</span>
                                                 <span class="old__price">Rp.
-                                                    {{ $item->price + 500000 }}</span>
+                                                    {{ $item->price * 0.2 }}</span>
                                             </div>
                                             <a class="product__items--action__cart--btn primary__btn btn__style3"
                                                 href="cart.html">
@@ -413,7 +423,7 @@
                                             <div class="product__items--price">
                                                 <span class="current__price">Rp. {{ $item->price }}</span>
                                                 <span class="old__price">Rp.
-                                                    {{ $item->price + 500000 }}</span>
+                                                    {{ $item->price * 0.2 }}</span>
                                             </div>
                                             <a class="product__items--action__cart--btn primary__btn btn__style3"
                                                 href="cart.html">
@@ -458,6 +468,312 @@
             <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="48" d="M112 244l144-144 144 144M256 120v292" />
         </svg></button>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: '/getcartcount',
+                method: 'GET',
+                success: function(response) {
+                    console.log(response.cart_count);
+                    $(".cart_count").html(response.cart_count);
+                    // $('.wishlist_count').html(response.jumlah_wishlist);
+                    // Mengakses data dari response JSON
+                    //     var wishlistData = response.wishlist;
+                    //     var profilPenjualData = response.profil_penjual;
+
+                    //     // Lakukan operasi atau manipulasi data yang diperlukan
+                    //     console.log(wishlistData);
+                    //     console.log(profilPenjualData);
+                },
+                error: function(error) {
+                    console.log('Gagal mengambil data cart:', error);
+                }
+            });
+
+            $.ajax({
+                url: '/ambilwishlist',
+                method: 'GET',
+                success: function(response) {
+                    console.log(response.jumlah_wishlist);
+                    $('.wishlist_count').html(response.jumlah_wishlist);
+                    // Mengakses data dari response JSON
+                    //     var wishlistData = response.wishlist;
+                    //     var profilPenjualData = response.profil_penjual;
+
+                    //     // Lakukan operasi atau manipulasi data yang diperlukan
+                    //     console.log(wishlistData);
+                    //     console.log(profilPenjualData);
+                },
+                error: function(error) {
+                    console.log('Gagal mengambil data wishlist:', error);
+                }
+            });
+
+            $('.addwish').on('click', function() {
+                // Kode yang akan dijalankan ketika elemen .addwish diklik
+                // Misalnya, Anda dapat menambahkan item ke wishlist atau menjalankan fungsi lainnya
+                console.log('Elemen dengan kelas .addwish diklik!');
+
+
+                var barangId = $(this).data('barang-id');
+                console.log(barangId);
+
+                $.ajax({
+                    url: '/tambahwishlist',
+                    method: 'POST',
+                    data: {
+                        '_token': $('meta[name="csrf-token"]').attr(
+                            'content'), // Mengambil token dari meta tag
+                        'barang_id': barangId,
+                    },
+                    success: function(response) {
+                        var jumlahwish = $('.wishlist_count').html();
+                        intJumlahWish = parseInt(jumlahwish);
+                        intJumlahWish += 1;
+                        $('.wishlist_count').html(intJumlahWish.toString());
+                        console.log(response.message);
+                        // Tambahkan logika atau tindakan lain setelah wishlist berhasil ditambahkan
+                    },
+                    error: function(error) {
+                        console.log('Gagal menambahkan ke wishlist:', error);
+                    }
+                });
+            });
+            //addcart
+            $('.addcart').on('click', function() {
+                var barangId = $(this).data('barang-id');
+                console.log(barangId);
+
+                $.ajax({
+                    url: '/addcart',
+                    method: 'POST',
+                    data: {
+                        '_token': $('meta[name="csrf-token"]').attr(
+                            'content'), // Mengambil token dari meta tag
+                        'barang_id': barangId,
+                    },
+                    success: function(response) {
+
+
+                        console.log(response.message);
+                        if (response.message == "The item is already in the cart") {
+                            Swal.fire({
+                                title: 'Oops!',
+                                text: response.message,
+                                icon: 'error',
+                                showConfirmButton: false,
+                                timer: 2000 // Jeda selama 2 detik
+                            }).then(function() {
+                                // Setelah jeda, redirect halaman
+                                // setTimeout(function() {
+                                //    location.reload();
+                                // }, 2000);  // Sesuaikan jeda dengan timer di atas
+                            });
+                        } else {
+                            var jumlahCart = $(".cart_count").html();
+                            var intJumlahCart = parseInt(jumlahCart);
+                            intJumlahCart += 1;
+                            $(".cart_count").html(intJumlahCart.toString());
+                            Swal.fire({
+                                title: 'Success!',
+                                text: response.message,
+                                icon: 'success',
+                                showConfirmButton: false,
+                                timer: 2000 // Jeda selama 2 detik
+                            }).then(function() {
+                                // Setelah jeda, redirect halaman
+                                // setTimeout(function() {
+                                //    location.reload();
+                                // }, 2000);  // Sesuaikan jeda dengan timer di atas
+                            });
+                        }
+
+                    },
+                    error: function(error) {
+                        console.log('Gagal menambah cart:', error);
+                        Swal.fire({
+                            title: 'Oops!',
+                            text: response.message,
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000 // Jeda selama 2 detik
+                        }).then(function() {
+                            // Setelah jeda, redirect halaman
+                            // setTimeout(function() {
+                            //    location.reload();
+                            // }, 2000);  // Sesuaikan jeda dengan timer di atas
+                        });
+                    }
+                });
+
+
+
+            });
+        });
+
+
+        //ambil data ke cart
+        $(document).ready(function() {
+            // Function to update total price
+            function updateTotalPrice(quantity, price) {
+                var totalPrice = quantity * price;
+                return totalPrice.toFixed(2); // Format to two decimal places
+            }
+
+            // Function to fetch data and update HTML
+            function fetchDataAndUpdateHTML() {
+                $.ajax({
+                    url: '/getCartData',
+                    method: 'GET',
+                    success: function(response) {
+                        console.log(response);
+                        var minicartContainer = $('.minicart__product');
+                        minicartContainer.empty();
+
+                        $.each(response.cartData, function(index, cartItem) {
+                            var html = `
+                        <div class="minicart__product--items d-flex">
+                            <div class="minicart__thumbnail">
+                                <a href="#"><img src="{{ asset('storage/public/images/${cartItem.image}') }}" alt="${cartItem.nama_barang}"></a>
+                            </div>
+                            <div class="minicart__text">
+                                <h4 class="minicart__subtitle"><a href="#">${cartItem.nama_barang}</a></h4>
+                                <span class="color__variant"><b>Category:</b> ${cartItem.category_id}</span>
+                                <div class="minicart__price">
+                                    <span class="current__price">${cartItem.price}</span>
+                                </div>
+                                <div class="minicart__text--footer d-flex align-items-center">
+                                    <div class="quantity__box minicart__quantity">
+                                        <button type="button" class="quantity__value decrease" aria-label="quantity value" value="Decrease Value">-</button>
+                                        <label>
+                                            <input type="number" class="quantity__number" value="${cartItem.quantity}" data-product-id="${cartItem.barang_id}" />
+                                        </label>
+                                        <button type="button" class="quantity__value increase" aria-label="quantity value" value="Increase Value">+</button>
+                                    </div>
+                                    <button class="minicart__product--remove" aria-label="minicart remove btn">Remove</button>
+                                </div>
+                                <div class="minicart__total">
+                                    <span>Total: <span class="total-price">${updateTotalPrice(cartItem.quantity, cartItem.price)}</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                            minicartContainer.append(html);
+                        });
+                    },
+                    error: function(error) {
+                        console.log('Error fetching cart data:', error);
+                    }
+                });
+            }
+
+            // Initial fetch and update
+            fetchDataAndUpdateHTML();
+
+            // Quantity increase and decrease logic
+            $(document).on('click', '.quantity__value', function() {
+                // $('.quantity__box').on('click', '.quantity__value', function() {
+                var parentDiv = $(this).closest('.minicart__quantity');
+                var inputField = parentDiv.find('.quantity__number');
+                var priceElement = parentDiv.closest('.minicart__text').find('.current__price');
+                var totalElement = parentDiv.closest('.minicart__text').find('.total-price');
+                var productId = inputField.data('product-id');
+                var currentValue = parseInt(inputField.val());
+                var price = parseFloat(priceElement.text());
+
+                // Menentukan apakah menambah atau mengurangkan
+                var step = $(this).hasClass('increase') ? 1 : -1;
+
+                // Menentukan jumlah baru
+                var newQuantity = currentValue + step;
+                newQuantity = Math.max(newQuantity, 1); // Hanya memungkinkan nilai minimum 1
+
+                // Menghitung harga baru
+                var newPrice = newQuantity * price;
+
+                // Menyimpan nilai jumlah baru ke elemen input
+                inputField.val(newQuantity);
+
+                // Mengupdate harga di tampilan
+                totalElement.text(updateTotalPrice(newQuantity, price));
+
+                // Lakukan sesuatu dengan harga yang diperbarui
+                console.log('New Quantity:', newQuantity);
+                console.log('New Price:', newPrice);
+                // Perform AJAX to update the cart data
+                $.ajax({
+                    url: '/updatecart', // Update with your actual endpoint
+                    method: 'POST',
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                            'content') // Include the CSRF token
+                    },
+                    data: {
+                        product_id: productId,
+                        new_quantity: newQuantity,
+                        new_total: newPrice
+                    },
+                    success: function(response) {
+                        // Handle success response from the server
+                        console.log(response);
+                    },
+                    error: function(error) {
+                        // Handle error response from the server
+                        console.error('Error updating cart:', error);
+                    }
+                });
+            });
+
+            $(document).on('input', '.quantity__number', function() {
+                var inputField = $(this);
+                var parentDiv = inputField.closest('.minicart__quantity');
+                var priceElement = parentDiv.closest('.minicart__text').find('.current__price');
+                var totalElement = parentDiv.closest('.minicart__text').find('.total-price');
+                var productId = inputField.data('product-id');
+                var currentValue = parseInt(inputField.val(), 10);
+                var price = parseFloat(priceElement.text());
+
+                if (!isNaN(currentValue)) {
+                    // Update total in the UI
+                    totalElement.text(updateTotalPrice(currentValue, price));
+
+                    // Panggil AJAX untuk melakukan pembaruan data keranjang
+                    $.ajax({
+                        url: '/updatecart', // Ganti dengan URL endpoint Anda
+                        method: 'POST',
+                        dataType: 'json',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                                'content') // Include the CSRF token
+                        },
+                        data: {
+                            product_id: productId,
+                            new_quantity: currentValue,
+                            new_total: updateTotalPrice(currentValue, price)
+                        },
+                        success: function(response) {
+                            // Tanggapi respons dari server
+                            console.log(response);
+                        },
+                        error: function(error) {
+                            // Tanggapi kesalahan
+                            console.error('Error updating cart:', error);
+                        }
+                    });
+                } else {
+                    // Handle invalid input
+                    console.log('Invalid input for quantity');
+                }
+            });
+        });
+        // });
+    </script>
 
     <!-- All Script JS Plugins here  -->
     <script src="{{ asset('Afurea') }}/assets/js/vendor/popper.js" defer="defer"></script>
